@@ -1,5 +1,7 @@
 package comp1110.ass2;
 
+import java.util.Hashtable;
+
 /**
  * This class provides the text interface for the Warring States game
  */
@@ -17,8 +19,12 @@ public class WarringStatesGame {
      */
     static boolean isCardPlacementWellFormed(String cardPlacement) {
         // FIXME Task 2: determine whether a card placement is well-formed
-        return false;
+        if (cardPlacement.length() == 3
+                && cardPlacement.charAt(0) > 'a' - 1 && cardPlacement.charAt(0) < 'g' + 1
+                && cardPlacement.charAt(1) > '0' - 1 && cardPlacement.charAt(1) < '9' + 1
     }
+
+    Hashtable players = new Hashtable();
 
     /**
      * Determine whether a placement string is well-formed:
