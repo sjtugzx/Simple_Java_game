@@ -19,9 +19,54 @@ public class WarringStatesGame {
      */
     static boolean isCardPlacementWellFormed(String cardPlacement) {
         // FIXME Task 2: determine whether a card placement is well-formed
-        if (cardPlacement.length() == 3
-                && cardPlacement.charAt(0) > 'a' - 1 && cardPlacement.charAt(0) < 'g' + 1
-                && cardPlacement.charAt(1) > '0' - 1 && cardPlacement.charAt(1) < '9' + 1
+//        cardPlacement="f04";
+        System.out.println(cardPlacement);
+
+            char kingdonm=cardPlacement.charAt(0);
+            char num=cardPlacement.charAt(1);
+            char position=cardPlacement.charAt(2);
+//        System.out.println(kingdonm);
+//        System.out.println(num);
+//        System.out.println(position);
+            if((kingdonm=='a')&&((num<=55)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            {
+                return true;
+            }
+            if((kingdonm=='b')&&((num<=54)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            {
+                return true;
+            }
+            if((kingdonm=='c')&&((num<=53)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            {
+                return true;
+            }
+            if((kingdonm=='d')&&((num<=52)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            {
+                return true;
+            }
+            if((kingdonm=='e')&&((num<=51)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            {
+                return true;
+            }
+            if((kingdonm=='f')&&((num<=50)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            {
+                return true;
+            }
+            if((kingdonm=='g')&&((num<=49)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            {
+                return true;
+            }
+            if((kingdonm=='z')&&(num=='9')&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            {
+                return true;
+            }
+
+            else {
+//               System.out.println(cardPlacement+"is false");
+                return false;}
+
+//        return false;
+
     }
 
     Hashtable players = new Hashtable();
@@ -38,7 +83,9 @@ public class WarringStatesGame {
      */
     static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
-        return false;
+        int length=placement.length();
+        if (length>=108&&length>=3&&length%3==0)
+        return true;
     }
 
     /**
