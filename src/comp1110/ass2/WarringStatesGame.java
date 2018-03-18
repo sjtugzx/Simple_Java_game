@@ -1,6 +1,8 @@
 package comp1110.ass2;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * This class provides the text interface for the Warring States game
@@ -83,8 +85,123 @@ public class WarringStatesGame {
      */
     static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
+        System.out.println(placement);
+//        System.out.println(placement.length()%3);
+        if (placement==null)
+        {
+            System.out.println(placement+"1");
+            return false;
+        }
         int length=placement.length();
-        if (length>=108&&length>=3&&length%3==0)
+        //condition 1
+        if (length>108||length<3||length%3!=0)
+        {
+
+            System.out.println(placement+"2");
+            System.out.println(length);
+            System.out.println(length%3);
+            return false;
+        }
+        //condition 2
+
+        for(int i=0;i<length;i=i+3) {
+            char kingdonm = placement.charAt(i);
+            char num = placement.charAt(i + 1);
+            char position = placement.charAt(i + 2);
+
+            if ((kingdonm == 'a') && ((num <= 55) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
+//                System.out.print(kingdonm);
+//                System.out.print(num);
+//                System.out.println(position);
+                continue;
+            }
+            if ((kingdonm == 'b') && ((num <= 54) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
+//                System.out.print(kingdonm);
+//                System.out.print(num);
+//                System.out.println(position);
+                continue;
+            }
+            if ((kingdonm == 'c') && ((num <= 53) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
+//                System.out.print(kingdonm);
+//                System.out.print(num);
+//                System.out.println(position);
+                continue;
+            }
+            if ((kingdonm == 'd') && ((num <= 52) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
+//                System.out.print(kingdonm);
+//                System.out.print(num);
+//                System.out.println(position);
+                continue;
+            }
+            if ((kingdonm == 'e') && ((num <= 51) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
+//                System.out.print(kingdonm);
+//                System.out.print(num);
+//                System.out.println(position);
+                continue;
+            }
+            if ((kingdonm == 'f') && ((num <= 50) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
+//                System.out.print(kingdonm);
+//                System.out.print(num);
+//                System.out.println(position);
+                continue;
+            }
+            if ((kingdonm == 'g') && ((num <= 49) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
+//                System.out.print(kingdonm);
+//                System.out.print(num);
+//                System.out.println(position);
+                continue;
+            }
+            if ((kingdonm == 'z') && (num == '9') && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
+//                System.out.print(kingdonm);
+//                System.out.print(num);
+//                System.out.println(position);
+                continue;
+            } else {
+                System.out.println(placement+"3");
+                return false;
+
+            }
+
+        }
+        //condition3 and condition 4
+        List<String> usedCard=new ArrayList<String>();
+        List<String> usedPlace=new ArrayList<String>();
+        int t=0;
+//        System.out.println(length);
+        for(int i=0;i<length;i+=3)
+        {
+
+            usedCard.add(Character.toString(placement.charAt(i))+Character.toString(placement.charAt(i+1)));
+            usedPlace.add(Character.toString(placement.charAt(i+2)));
+            t++;
+//            System.out.println(usedCard.get(t-1));
+//            System.out.println(usedPlace.get(t-1));
+            if(t>1) {
+
+
+                for (int j = 0; j < (t - 1); ++j) {
+//                    System.out.println(usedCard.get(j));
+//                    System.out.println(usedPlace.get(j));
+                    if (usedCard.get(t - 1).equals(usedCard.get(j))) {
+//                        System.out.println("error 3");
+                        return false;
+                    }
+                    if (usedPlace.get(t - 1).equals(usedPlace.get(j))) {
+//                        System.out.println("error 4");
+                        return false;
+                    }
+//                    System.out.println(j);
+                }
+            }
+//            System.out.println(t);
+//            System.out.println(i);
+
+
+
+
+        }
+
+
         return true;
     }
 
