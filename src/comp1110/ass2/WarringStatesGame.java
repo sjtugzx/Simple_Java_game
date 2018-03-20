@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import static java.lang.Character.isDigit;
+import static java.lang.Character.isUpperCase;
+
 /**
  * This class provides the text interface for the Warring States game
  */
@@ -22,56 +25,23 @@ public class WarringStatesGame {
     static boolean isCardPlacementWellFormed(String cardPlacement) {
         // FIXME Task 2: determine whether a card placement is well-formed]
 
-        if (cardPlacement.length() != 3) {
-            return false;
-        }
-
         char kingdom = cardPlacement.charAt(0);
         char num = cardPlacement.charAt(1);
         char position = cardPlacement.charAt(2);
 
-
-        if ((position > 90 && position < 65) || (position < 48) && (position > 57)) {
-            return false;
-        }
-
-        if ((kingdom=='a')&&((num<=55)&&(num>=48)))
-            {
-                return true;
-            }
-            if((kingdom=='b')&&((num<=54)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdom=='c')&&((num<=53)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdom=='d')&&((num<=52)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdom=='e')&&((num<=51)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdom=='f')&&((num<=50)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdom=='g')&&((num<=49)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdom=='z')&&(num=='9')&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-
-            return false;
+        return  cardPlacement.length() == 3
+                && (isUpperCase(position) || isDigit(position))
+                && position < 91
+                && isDigit(num)
+                && ((kingdom == 'a' && num <  57)
+                ||  (kingdom == 'b' && num <  55)
+                ||  (kingdom == 'c' && num <  54)
+                ||  (kingdom == 'd' && num <  53)
+                ||  (kingdom == 'e' && num <  52)
+                ||  (kingdom == 'f' && num <  51)
+                ||  (kingdom == 'g' && num <  50)
+                ||  (kingdom == 'z' && num == 57));
     }
-
-    Hashtable players = new Hashtable();
 
     /**
      * Determine whether a placement string is well-formed:
