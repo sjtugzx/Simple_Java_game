@@ -16,8 +16,8 @@ import static comp1110.ass2.TestUtility.*;
  * <p>
  * Determine whether a card placement is well-formed according to the following:
  * - it consists of exactly three characters
- * - the first character is in the range a..g (kingdom)
- * - the second character is numeric, and is a valid character number for that kingdom
+ * - the first character is in the range a..g (kingdom) or is z (Zhang Yi)
+ * - the second character is numeric, and is a valid character number for that kingdom (9 for Zhang Yi)
  * - the third character is in the range A .. Z or 0..9 (location)
  */
 public class CardPlacementWellFormed {
@@ -45,7 +45,7 @@ public class CardPlacementWellFormed {
                 String lower = placement.toLowerCase();
                 assertFalse("Simple card placement string '" + lower + "', has lower case location, but passed", WarringStatesGame.isCardPlacementWellFormed(lower));
             }
-            assertTrue("Simple card placement string '" + upper + "' failed, but should have passed", WarringStatesGame.isCardPlacementWellFormed(placement));
+            assertTrue("Simple card placement string '" + placement + "' failed, but should have passed", WarringStatesGame.isCardPlacementWellFormed(placement));
         }
     }
 
@@ -108,6 +108,7 @@ public class CardPlacementWellFormed {
     public void checkSimpleValid(Random r) {
 
         assertTrue("Valid non-empty placement string is OK, but failed", WarringStatesGame.isPlacementWellFormed(TestUtility.randomCard(r) + TestUtility.randomLocation(r)));
-
+        String randomPlacement = TestUtility.randomCard(r) + TestUtility.randomLocation(r);
+        assertTrue("Valid non-empty placement string " + randomPlacement +" is OK, but failed", WarringStatesGame.isCardPlacementWellFormed(randomPlacement));
     }
 }

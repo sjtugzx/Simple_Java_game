@@ -12,8 +12,8 @@ public class WarringStatesGame {
     /**
      * Determine whether a card placement is well-formed according to the following:
      * - it consists of exactly three characters
-     * - the first character is in the range a..g (kingdom)
-     * - the second character is numeric, and is a valid character number for that kingdom
+     * - the first character is in the range a..g (kingdom) or is z (Zhang Yi)
+     * - the second character is numeric, and is a valid character number for that kingdom (9 for Zhang Yi)
      * - the third character is in the range A .. Z or 0..9 (location)
      *
      * @param cardPlacement A string describing a card placement
