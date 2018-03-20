@@ -20,55 +20,55 @@ public class WarringStatesGame {
      * @return true if the card placement is well-formed
      */
     static boolean isCardPlacementWellFormed(String cardPlacement) {
-        // FIXME Task 2: determine whether a card placement is well-formed
-//        cardPlacement="f04";
-        System.out.println(cardPlacement);
+        // FIXME Task 2: determine whether a card placement is well-formed]
 
-            char kingdonm=cardPlacement.charAt(0);
-            char num=cardPlacement.charAt(1);
-            char position=cardPlacement.charAt(2);
-//        System.out.println(kingdonm);
-//        System.out.println(num);
-//        System.out.println(position);
-            if((kingdonm=='a')&&((num<=55)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+        if (cardPlacement.length() != 3) {
+            return false;
+        }
+
+        char kingdom = cardPlacement.charAt(0);
+        char num = cardPlacement.charAt(1);
+        char position = cardPlacement.charAt(2);
+
+
+        if ((position > 90 && position < 65) || (position < 48) && (position > 57)) {
+            return false;
+        }
+
+        if ((kingdom=='a')&&((num<=55)&&(num>=48)))
             {
                 return true;
             }
-            if((kingdonm=='b')&&((num<=54)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            if((kingdom=='b')&&((num<=54)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
             {
                 return true;
             }
-            if((kingdonm=='c')&&((num<=53)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            if((kingdom=='c')&&((num<=53)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
             {
                 return true;
             }
-            if((kingdonm=='d')&&((num<=52)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            if((kingdom=='d')&&((num<=52)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
             {
                 return true;
             }
-            if((kingdonm=='e')&&((num<=51)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            if((kingdom=='e')&&((num<=51)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
             {
                 return true;
             }
-            if((kingdonm=='f')&&((num<=50)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            if((kingdom=='f')&&((num<=50)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
             {
                 return true;
             }
-            if((kingdonm=='g')&&((num<=49)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            if((kingdom=='g')&&((num<=49)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
             {
                 return true;
             }
-            if((kingdonm=='z')&&(num=='9')&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
+            if((kingdom=='z')&&(num=='9')&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
             {
                 return true;
             }
 
-            else {
-//               System.out.println(cardPlacement+"is false");
-                return false;}
-
-//        return false;
-
+            return false;
     }
 
     Hashtable players = new Hashtable();
