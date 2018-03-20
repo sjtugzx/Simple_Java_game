@@ -107,7 +107,7 @@ public class CardPlacementWellFormed {
 
     public void checkSimpleValid(Random r) {
 
-        assertTrue("Valid non-empty placement string is OK, but failed", WarringStatesGame.isPlacementWellFormed(TestUtility.randomCard(r) + TestUtility.randomLocation(r)));
+        assertTrue("Valid non-empty placement string is OK, but failed", WarringStatesGame.isCardPlacementWellFormed(TestUtility.randomCard(r) + TestUtility.randomLocation(r)));
 
     }
 }
