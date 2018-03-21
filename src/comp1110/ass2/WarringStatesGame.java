@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import static java.lang.Character.isDigit;
+import static java.lang.Character.isUpperCase;
+
 /**
  * This class provides the text interface for the Warring States game
  */
@@ -12,66 +15,33 @@ public class WarringStatesGame {
     /**
      * Determine whether a card placement is well-formed according to the following:
      * - it consists of exactly three characters
-     * - the first character is in the range a..g (kingdom)
-     * - the second character is numeric, and is a valid character number for that kingdom
+     * - the first character is in the range a..g (kingdom) or is z (Zhang Yi)
+     * - the second character is numeric, and is a valid character number for that kingdom (9 for Zhang Yi)
      * - the third character is in the range A .. Z or 0..9 (location)
      *
      * @param cardPlacement A string describing a card placement
      * @return true if the card placement is well-formed
      */
     static boolean isCardPlacementWellFormed(String cardPlacement) {
-        // FIXME Task 2: determine whether a card placement is well-formed
-//        cardPlacement="f04";
-        System.out.println(cardPlacement);
+        // FIXME Task 2: determine whether a card placement is well-formed]
 
-            char kingdonm=cardPlacement.charAt(0);
-            char num=cardPlacement.charAt(1);
-            char position=cardPlacement.charAt(2);
-//        System.out.println(kingdonm);
-//        System.out.println(num);
-//        System.out.println(position);
-            if((kingdonm=='a')&&((num<=55)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdonm=='b')&&((num<=54)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdonm=='c')&&((num<=53)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdonm=='d')&&((num<=52)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdonm=='e')&&((num<=51)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdonm=='f')&&((num<=50)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdonm=='g')&&((num<=49)&&(num>=48))&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
-            if((kingdonm=='z')&&(num=='9')&&((position<=90&&position>=65)||(position>=48)&&(position<=57)))
-            {
-                return true;
-            }
+        char kingdom = cardPlacement.charAt(0);
+        char num = cardPlacement.charAt(1);
+        char position = cardPlacement.charAt(2);
 
-            else {
-//               System.out.println(cardPlacement+"is false");
-                return false;}
-
-//        return false;
-
+        return  cardPlacement.length() == 3
+                && (isUpperCase(position) || isDigit(position))
+                && position < 91
+                && isDigit(num)
+                && ((kingdom == 'a' && num <  57)
+                ||  (kingdom == 'b' && num <  55)
+                ||  (kingdom == 'c' && num <  54)
+                ||  (kingdom == 'd' && num <  53)
+                ||  (kingdom == 'e' && num <  52)
+                ||  (kingdom == 'f' && num <  51)
+                ||  (kingdom == 'g' && num <  50)
+                ||  (kingdom == 'z' && num == 57));
     }
-
-    Hashtable players = new Hashtable();
 
     /**
      * Determine whether a placement string is well-formed:
@@ -85,76 +55,48 @@ public class WarringStatesGame {
      */
     static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
-        System.out.println(placement);
-//        System.out.println(placement.length()%3);
-        if (placement==null)
+
+        if (placement == null)
         {
-            System.out.println(placement+"1");
             return false;
         }
-        int length=placement.length();
-        //condition 1
-        if (length>108||length<3||length%3!=0)
-        {
 
-            System.out.println(placement+"2");
-            System.out.println(length);
-            System.out.println(length%3);
+
+        int length = placement.length();
+        //condition 1
+        if (length > 108 || length < 3 || length % 3 != 0 )
+        {
             return false;
         }
         //condition 2
 
-        for(int i=0;i<length;i=i+3) {
+        for(int i = 0; i < length; i += 3) {
             char kingdonm = placement.charAt(i);
             char num = placement.charAt(i + 1);
             char position = placement.charAt(i + 2);
 
             if ((kingdonm == 'a') && ((num <= 55) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
-//                System.out.print(kingdonm);
-//                System.out.print(num);
-//                System.out.println(position);
                 continue;
             }
             if ((kingdonm == 'b') && ((num <= 54) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
-//                System.out.print(kingdonm);
-//                System.out.print(num);
-//                System.out.println(position);
                 continue;
             }
             if ((kingdonm == 'c') && ((num <= 53) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
-//                System.out.print(kingdonm);
-//                System.out.print(num);
-//                System.out.println(position);
                 continue;
             }
             if ((kingdonm == 'd') && ((num <= 52) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
-//                System.out.print(kingdonm);
-//                System.out.print(num);
-//                System.out.println(position);
                 continue;
             }
             if ((kingdonm == 'e') && ((num <= 51) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
-//                System.out.print(kingdonm);
-//                System.out.print(num);
-//                System.out.println(position);
                 continue;
             }
             if ((kingdonm == 'f') && ((num <= 50) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
-//                System.out.print(kingdonm);
-//                System.out.print(num);
-//                System.out.println(position);
                 continue;
             }
             if ((kingdonm == 'g') && ((num <= 49) && (num >= 48)) && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
-//                System.out.print(kingdonm);
-//                System.out.print(num);
-//                System.out.println(position);
                 continue;
             }
             if ((kingdonm == 'z') && (num == '9') && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
-//                System.out.print(kingdonm);
-//                System.out.print(num);
-//                System.out.println(position);
                 continue;
             } else {
                 System.out.println(placement+"3");
