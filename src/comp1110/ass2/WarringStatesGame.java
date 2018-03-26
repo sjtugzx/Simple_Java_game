@@ -151,9 +151,13 @@ public class WarringStatesGame {
      * Determine whether a given move is legal given a provided valid placement:
      * - the location char is in the range A .. Z or 0..9
      * - there is a card at the chosen location;
+     *
      * - the location is in the same row or column of the grid as Zhang Yi's current position; and
+     *
+     *
      * - drawing a line from Zhang Yi's current location through the card at the chosen location,
      *   there are no other cards along the line from the same kingdom as the chosen card
+     *
      *   that are further away from Zhang Yi.
      * @param placement    the current placement string
      * @param locationChar a location for Zhang Yi to move to
@@ -161,7 +165,260 @@ public class WarringStatesGame {
      */
     public static boolean isMoveLegal(String placement, char locationChar) {
         // FIXME Task 5: determine whether a given move is legal
-        return false;
+        //location range
+        if ((locationChar<48)||((locationChar>57)&&(locationChar<65))||(locationChar>90))
+        {
+            return false;
+        }
+
+//      // card at chosen location
+        int flag=0;
+        int placementLength=placement.length();
+        char [] location=new char [placementLength/3];
+        String [] card=new String[placementLength/3];
+        int cont=0;
+        String aimCardKingdomCharacter="";
+//        System.out.println(locationChar);
+        for(int j=0;j<placementLength/3; j++)
+        {
+
+                location[j]=placement.charAt(cont+2);
+                card[j]=String.valueOf(placement.charAt(cont))+String.valueOf(placement.charAt(cont+1));
+                cont+=3;
+        }
+        for(int k=0; k<placementLength/3;++k)
+        {
+
+            if(location[k]==locationChar)
+            {
+//                System.out.println(location[k]);
+                aimCardKingdomCharacter=card[k];
+                flag=1;
+                break;
+            }
+        }
+        System.out.println(flag);
+        if(flag==0)
+        {
+            System.out.println("error 1");
+            return false;
+        }
+
+
+        //check the row or column
+        //get zhangyi's location
+        char zhangYiLocation=' ';
+        int zhangYiColumn=-1;
+        int zhangYiRow=-1;
+        for(int k=0;k<placementLength/3;++k)
+        {
+//            System.out.println(card[k]);
+            if(card[k].equals("z9")) {
+//                System.out.println("you zhangyi");
+                zhangYiLocation=location[k];
+                System.out.println(zhangYiLocation);
+                if((zhangYiLocation<=70)&&(zhangYiLocation>=65))
+                {
+                    zhangYiColumn=5;
+                    zhangYiRow=(int)zhangYiLocation-5*13;
+                }
+                if((zhangYiLocation<=76)&&(zhangYiLocation>=71))
+                {
+                    zhangYiColumn=4;
+                    zhangYiRow=(int)zhangYiLocation-71;
+                }
+                if((zhangYiLocation<=82)&&(zhangYiLocation>=77))
+                {
+                    zhangYiColumn=3;
+                    zhangYiRow=(int)zhangYiLocation-77;
+                }
+
+                if((zhangYiLocation<=88)&&(zhangYiLocation>=83))
+                {
+                    zhangYiColumn=2;
+                    zhangYiRow=(int)zhangYiLocation-83;
+                }
+                if((zhangYiLocation<=90)&&(zhangYiLocation>=89))
+                {
+                    zhangYiColumn=1;
+                    zhangYiRow=(int)zhangYiLocation-89;
+                }
+                if((zhangYiLocation<=51)&&(zhangYiLocation>=48))
+                {
+                    zhangYiColumn=1;
+                    zhangYiRow=(int)zhangYiLocation-46;
+                }
+                if((zhangYiLocation<=57)&&(zhangYiLocation>=52))
+                {
+                    zhangYiColumn=0;
+                    zhangYiRow=(int)zhangYiLocation-52;
+                }
+                System.out.println(zhangYiLocation);
+                break;
+            }
+
+        }
+        if(zhangYiColumn==-1||zhangYiRow==-1)
+        {
+            System.out.println("error 2");
+            return false;
+        }
+        //get aim location column and row
+        int aimLocationColumn=-1;
+        int aimLocationRow=-1;
+        char rowBegin=' ';
+        if((locationChar<=70)&&(locationChar>=65))
+        {
+            aimLocationColumn=5;
+            aimLocationRow=(int)locationChar-5*13;
+            rowBegin='A';
+
+        }
+        if((locationChar<=76)&&(locationChar>=71))
+        {
+            aimLocationColumn=4;
+            aimLocationRow=(int)locationChar-71;
+            rowBegin='G';
+        }
+        if((locationChar<=82)&&(locationChar>=77))
+        {
+            aimLocationColumn=3;
+            aimLocationRow=(int)locationChar-77;
+            rowBegin='M';
+        }
+
+        if((locationChar<=88)&&(locationChar>=83))
+        {
+            aimLocationColumn=2;
+            aimLocationRow=(int)locationChar-83;
+            rowBegin='S';
+        }
+        if((locationChar<=90)&&(locationChar>=89))
+        {
+            aimLocationColumn=1;
+            aimLocationRow=(int)locationChar-89;
+            rowBegin='Y';
+        }
+        if((locationChar<=51)&&(locationChar>=48))
+        {
+            aimLocationColumn=1;
+            aimLocationRow=(int)locationChar-46;
+            rowBegin='Y';
+
+        }
+        if((locationChar<=57)&&(locationChar>=52))
+        {
+            aimLocationColumn=0;
+            aimLocationRow=(int)locationChar-52;
+            rowBegin='4';
+        }
+        if(aimLocationColumn==-1||aimLocationRow==-1)
+        {
+            System.out.println("error 3");
+            return false;
+        }
+
+        if(((zhangYiColumn!=aimLocationColumn)&&(zhangYiRow!=aimLocationRow))||(zhangYiLocation==locationChar))
+        {
+            System.out.println("error 4");
+            return false;
+        }
+
+
+//      the furthest card
+        //get kingdom
+//        char kingdom;
+//        char test;
+//        String testKingdom="";
+//        kingdom=aimCardKingdomCharacter.charAt(0);
+//        //get other card from the same line
+//        //from the same column
+//        System.out.println(zhangYiColumn);
+//        System.out.println(aimLocationColumn);
+//        System.out.println(zhangYiRow);
+//        System.out.println(aimLocationRow);
+//        if(zhangYiColumn==aimLocationColumn) {
+//            System.out.println("same column");
+//            if (aimLocationRow < zhangYiRow) {
+//                System.out.println("<");
+//                if (aimLocationRow == 0) {
+//                    System.out.println("==0");
+//                    return true;
+//                }
+//                //get other element
+//
+//                test = rowBegin;
+//                System.out.println(test);
+//                for (int i = 0; i < aimLocationRow; ++i) {
+////                    test=rowBegin;
+//                    for (int j = 0; j < placementLength / 3; ++j) {
+//                        if (location[j] == test) {
+//                            testKingdom = card[j];
+//                            System.out.println(testKingdom);
+//                            break;
+//
+//                        }
+//
+//                    }
+//                    if (test=='Z')
+//                    {
+//                        test='0';
+//                    }
+//                    else test = (char) (test + 1);
+//
+//                }
+//
+////                if (testKingdom.charAt(0) == kingdom) {
+////                    System.out.println("error 5");
+////                    return false;
+////                }
+//            }
+//            if (aimLocationRow > zhangYiRow) {
+//                if (aimLocationRow == 5) {
+//                    return true;
+//                }
+//                if (aimLocationRow=='Z')
+//                {
+//                    test='0';
+//                }
+//                else test = (char) (aimLocationRow + 1);
+//                for (int i = aimLocationRow + 1; i < 5; i++) {
+////                    test=rowBegin;
+//                    for (int j = 0; j < placementLength / 3; ++j) {
+//                        if (location[j] == test) {
+//                            testKingdom = card[j];
+//                            System.out.println(testKingdom);
+//                            break;
+//
+//                        }
+//
+//                    }
+//                    if (test=='Z')
+//                    {
+//                        test='0';
+//                    }
+//                    else test = (char) (test + 1);
+//
+//                }
+//                if (testKingdom.charAt(0) == kingdom) {
+//                    System.out.println("error 5");
+//                    return false;
+//                }
+
+//            }
+//        }
+//        if (zhangYiRow==aimLocationRow)
+//        {
+//            if()
+//        }
+
+
+
+
+
+
+
+        return true;
     }
 
     /**
