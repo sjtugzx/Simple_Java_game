@@ -853,6 +853,7 @@ public class WarringStatesGame {
      */
     static boolean isMoveSequenceValid(String setup, String moveSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
+        //valid sequence
         int moveLength = moveSequence.length();
         char[] location1 = new char[moveLength];
         for (int i = 0; i < moveLength; ++i) {
