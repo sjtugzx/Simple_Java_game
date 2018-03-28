@@ -1,7 +1,8 @@
-We declare that the work toward our submission of Stage C was distributed among the group members as follows:
+We declare that the work toward our submission of Stage B was distributed among the group members as follows:
 
-* u2345678 30
-* u3456789 40
-* u0234567 30
 
-Signed: Mary Jones (u2345678), Bob Smith (u3456789), and Sue Black (u0234567)
+u6437444 10%
+u6371520 90%
+
+
+Signed: Zhixin Guo (u6371520) and Raiyan Ahsan (u6437444).
