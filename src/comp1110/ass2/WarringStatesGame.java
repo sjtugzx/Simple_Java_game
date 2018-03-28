@@ -207,6 +207,7 @@ public class WarringStatesGame {
 
         //check the row or column
         //get zhangyi's location
+        //judgement
         char zhangYiLocation=' ';
         int zhangYiColumn=-1;
         int zhangYiRow=-1;
@@ -264,6 +265,7 @@ public class WarringStatesGame {
             return false;
         }
         //get aim location column and row
+        //judgement
         int aimLocationColumn=-1;
         int aimLocationRow=-1;
         char rowBegin=' ';

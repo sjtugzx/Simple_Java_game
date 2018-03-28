@@ -50,6 +50,7 @@ public class Viewer extends Application {
 
      void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
+         //get string
          int listLength=placement.length()/3;
         String [] orientationList=new String [listLength];
         String [] cardList=new String[listLength];
@@ -69,6 +70,8 @@ public class Viewer extends Application {
 
         }
 //         System.out.println(orientationList);
+
+         //new grid
         GridPane gridPane=new GridPane();
 
          gridPane.setAlignment(Pos.CENTER);
@@ -100,7 +103,7 @@ public class Viewer extends Application {
              swap[i]=(int)orientationList[i].charAt(0);
              System.out.println(swap[i]);
          }
-
+        //add button and judge the location
          for(int i=0; i<listLength; ++i)
         {
             if((orientationList[i].charAt(0)<=70)&&(orientationList[i].charAt(0)>=65))
