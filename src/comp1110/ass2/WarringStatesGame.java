@@ -267,43 +267,45 @@ public class WarringStatesGame {
         int aimLocationColumn=-1;
         int aimLocationRow=-1;
         char rowBegin=' ';
+        char columnBegin=' ';
         if((locationChar<=70)&&(locationChar>=65))
         {
             aimLocationColumn=5;
             aimLocationRow=(int)locationChar-5*13;
-            rowBegin='A';
+            columnBegin='A';
+
 
         }
         if((locationChar<=76)&&(locationChar>=71))
         {
             aimLocationColumn=4;
             aimLocationRow=(int)locationChar-71;
-            rowBegin='G';
+            columnBegin='G';
         }
         if((locationChar<=82)&&(locationChar>=77))
         {
             aimLocationColumn=3;
             aimLocationRow=(int)locationChar-77;
-            rowBegin='M';
+            columnBegin='M';
         }
 
         if((locationChar<=88)&&(locationChar>=83))
         {
             aimLocationColumn=2;
             aimLocationRow=(int)locationChar-83;
-            rowBegin='S';
+            columnBegin='S';
         }
         if((locationChar<=90)&&(locationChar>=89))
         {
             aimLocationColumn=1;
             aimLocationRow=(int)locationChar-89;
-            rowBegin='Y';
+            columnBegin='Y';
         }
         if((locationChar<=51)&&(locationChar>=48))
         {
             aimLocationColumn=1;
             aimLocationRow=(int)locationChar-46;
-            rowBegin='Y';
+            columnBegin='Y';
 
         }
         if((locationChar<=57)&&(locationChar>=52))
@@ -324,93 +326,510 @@ public class WarringStatesGame {
             return false;
         }
 
-
+       char[] column0=new char[]{'4','5','6','7','8','9'};
+        char[] column1=new char[]{'Y','Z','0','1','2','3'};
+        char[] column2=new char[]{'S','T','U','V','W','X'};
+        char[] column3=new char[]{'M','N','O','P','Q','R'};
+        char[] column4=new char[]{'G','H','I','J','K','L'};
+        char[] column5=new char[]{'A','B','C','D','E','F'};
 //      the furthest card
         //get kingdom
-//        char kingdom;
-//        char test;
-//        String testKingdom="";
-//        kingdom=aimCardKingdomCharacter.charAt(0);
-//        //get other card from the same line
-//        //from the same column
-//        System.out.println(zhangYiColumn);
-//        System.out.println(aimLocationColumn);
-//        System.out.println(zhangYiRow);
-//        System.out.println(aimLocationRow);
-//        if(zhangYiColumn==aimLocationColumn) {
-//            System.out.println("same column");
-//            if (aimLocationRow < zhangYiRow) {
-//                System.out.println("<");
-//                if (aimLocationRow == 0) {
-//                    System.out.println("==0");
-//                    return true;
-//                }
-//                //get other element
-//
-//                test = rowBegin;
-//                System.out.println(test);
-//                for (int i = 0; i < aimLocationRow; ++i) {
-////                    test=rowBegin;
-//                    for (int j = 0; j < placementLength / 3; ++j) {
-//                        if (location[j] == test) {
-//                            testKingdom = card[j];
-//                            System.out.println(testKingdom);
-//                            break;
-//
-//                        }
-//
-//                    }
-//                    if (test=='Z')
-//                    {
-//                        test='0';
-//                    }
-//                    else test = (char) (test + 1);
-//
-//                }
-//
-////                if (testKingdom.charAt(0) == kingdom) {
-////                    System.out.println("error 5");
-////                    return false;
-////                }
-//            }
-//            if (aimLocationRow > zhangYiRow) {
-//                if (aimLocationRow == 5) {
-//                    return true;
-//                }
-//                if (aimLocationRow=='Z')
-//                {
-//                    test='0';
-//                }
-//                else test = (char) (aimLocationRow + 1);
-//                for (int i = aimLocationRow + 1; i < 5; i++) {
-////                    test=rowBegin;
-//                    for (int j = 0; j < placementLength / 3; ++j) {
-//                        if (location[j] == test) {
-//                            testKingdom = card[j];
-//                            System.out.println(testKingdom);
-//                            break;
-//
-//                        }
-//
-//                    }
-//                    if (test=='Z')
-//                    {
-//                        test='0';
-//                    }
-//                    else test = (char) (test + 1);
-//
-//                }
-//                if (testKingdom.charAt(0) == kingdom) {
-//                    System.out.println("error 5");
-//                    return false;
-//                }
+        char kingdom;
+        char test;
+        String testKingdom="";
+        kingdom=aimCardKingdomCharacter.charAt(0);
+        //get other card from the same line
+        //from the same column
+        System.out.print(zhangYiColumn);
+        System.out.println(zhangYiRow);
+        System.out.print(aimLocationColumn);
 
-//            }
-//        }
-//        if (zhangYiRow==aimLocationRow)
-//        {
-//            if()
-//        }
+        System.out.println(aimLocationRow);
+
+        if(zhangYiColumn==aimLocationColumn) {
+            System.out.println("same column");
+
+            if (aimLocationRow < zhangYiRow) {
+                System.out.println("<");
+                if (aimLocationRow == 0) {
+                    System.out.println("==0");
+                    return true;
+                }
+                //get other element
+                if(aimLocationColumn==0)
+                {
+                    for(int i=0;i<aimLocationRow;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column0[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationColumn==1)
+                {
+                    for(int i=0;i<aimLocationRow;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column1[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationColumn==2)
+                {
+                    for(int i=0;i<aimLocationRow;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column2[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationColumn==3)
+                {
+                    for(int i=0;i<aimLocationRow;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column3[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationColumn==4)
+                {
+                    for(int i=0;i<aimLocationRow;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column4[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationColumn==5)
+                {
+                    for(int i=0;i<aimLocationRow;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column5[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (aimLocationRow > zhangYiRow) {
+                System.out.println(">");
+
+                if (aimLocationRow == 5) {
+                    return true;
+                }
+                if(aimLocationColumn==0)
+                {
+                    for(int i=aimLocationRow+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column0[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationColumn==1)
+                {
+                    for(int i=aimLocationRow+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column1[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationColumn==2)
+                {
+                    for(int i=aimLocationRow+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column2[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationColumn==3)
+                {
+                    for(int i=aimLocationRow+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column3[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationColumn==4)
+                {
+                    for(int i=aimLocationRow+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column4[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationColumn==5)
+                {
+                    for(int i=aimLocationRow+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(column5[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 5");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            }
+        }
+        char[] row0=new char[]{'4','Y','S','M','G','A'};
+        char[] row1=new char[]{'5','Z','T','N','H','B'};
+        char[] row2=new char[]{'6','0','U','O','I','C'};
+        char[] row3=new char[]{'7','1','V','P','J','D'};
+        char[] row4=new char[]{'8','2','W','Q','K','E'};
+        char[] row5=new char[]{'9','3','X','R','L','F'};
+        if (zhangYiRow==aimLocationRow)
+        {
+            System.out.println("same Row");
+            System.out.print(zhangYiColumn);
+            System.out.println(zhangYiRow);
+            System.out.print(aimLocationColumn);
+            System.out.println(aimLocationRow);
+            if(aimLocationColumn<zhangYiColumn)
+            {
+                System.out.println("<");
+                if(aimLocationColumn==0)
+                {
+                    return true;
+                }
+                if(aimLocationRow==0)
+                {
+                    for(int i=0;i<aimLocationColumn;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row0[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationRow==1)
+                {
+                    for(int i=0;i<aimLocationColumn;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row1[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationRow==2)
+                {
+                    for(int i=0;i<aimLocationColumn;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row2[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationRow==3)
+                {
+                    for(int i=0;i<aimLocationColumn;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row3[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationRow==4)
+                {
+                    for(int i=0;i<aimLocationColumn;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row4[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationRow==5)
+                {
+                    for(int i=0;i<aimLocationColumn;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row5[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+            if(aimLocationColumn>zhangYiColumn)
+            {
+                System.out.println(">");
+                if(aimLocationColumn==5)
+                {
+                    return true;
+                }
+                if(aimLocationRow==0)
+                {
+                    for(int i=aimLocationColumn+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row0[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationRow==0)
+                {
+                    for(int i=aimLocationColumn+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row1[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationRow==2)
+                {
+                    for(int i=aimLocationColumn+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row2[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationRow==3)
+                {
+                    for(int i=aimLocationColumn+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row3[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationRow==4)
+                {
+                    for(int i=aimLocationColumn+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row4[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(aimLocationRow==5)
+                {
+                    for(int i=aimLocationColumn+1;i<=5;++i)
+                    {
+                        for(int j=0;j<placementLength/3;++j)
+                        {
+                            if(row5[i]==location[j])
+                            {
+                                testKingdom = card[j];
+                                if(testKingdom.charAt(0)==kingdom)
+                                {
+                                    System.out.println("error 6");
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
 
 
