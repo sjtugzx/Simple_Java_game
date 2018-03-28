@@ -853,7 +853,99 @@ public class WarringStatesGame {
      */
     static boolean isMoveSequenceValid(String setup, String moveSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
-        return false;
+        int moveLength = moveSequence.length();
+        char[] location1 = new char[moveLength];
+        for (int i = 0; i < moveLength; ++i) {
+            location1[i] = moveSequence.charAt(i);
+            if ((location1[i] < 48) || ((location1[i] > 57) && (location1[i] < 65)) || (location1[i] > 90)) {
+                return false;
+            }
+        }
+
+        for (int kk = 0; kk < moveLength; ++kk) {
+
+
+        int flag = 0;
+        int placementLength = setup.length();
+        char[] location = new char[placementLength / 3];
+        String[] card = new String[placementLength / 3];
+        int cont = 0;
+        String aimCardKingdomCharacter = "";
+//        System.out.println(locationChar);
+        for (int j = 0; j < placementLength / 3; j++) {
+
+            location[j] = setup.charAt(cont + 2);
+            card[j] = String.valueOf(setup.charAt(cont)) + String.valueOf(setup.charAt(cont + 1));
+            cont += 3;
+        }
+        for (int k = 0; k < placementLength / 3; ++k) {
+
+            if (location[k] ==location1[kk]) {
+//                System.out.println(location[k]);
+                aimCardKingdomCharacter = card[k];
+                flag = 1;
+                break;
+            }
+        }
+        System.out.println(flag);
+        if (flag == 0) {
+            System.out.println("error 1");
+            return false;
+        }
+
+
+        //check the row or column
+        //get zhangyi's location
+        char zhangYiLocation = ' ';
+        int zhangYiColumn = -1;
+        int zhangYiRow = -1;
+        for (int k = 0; k < placementLength / 3; ++k) {
+//            System.out.println(card[k]);
+            if (card[k].equals("z9")) {
+//                System.out.println("you zhangyi");
+                zhangYiLocation = location[k];
+                System.out.println(zhangYiLocation);
+                if ((zhangYiLocation <= 70) && (zhangYiLocation >= 65)) {
+                    zhangYiColumn = 5;
+                    zhangYiRow = (int) zhangYiLocation - 5 * 13;
+                }
+                if ((zhangYiLocation <= 76) && (zhangYiLocation >= 71)) {
+                    zhangYiColumn = 4;
+                    zhangYiRow = (int) zhangYiLocation - 71;
+                }
+                if ((zhangYiLocation <= 82) && (zhangYiLocation >= 77)) {
+                    zhangYiColumn = 3;
+                    zhangYiRow = (int) zhangYiLocation - 77;
+                }
+
+                if ((zhangYiLocation <= 88) && (zhangYiLocation >= 83)) {
+                    zhangYiColumn = 2;
+                    zhangYiRow = (int) zhangYiLocation - 83;
+                }
+                if ((zhangYiLocation <= 90) && (zhangYiLocation >= 89)) {
+                    zhangYiColumn = 1;
+                    zhangYiRow = (int) zhangYiLocation - 89;
+                }
+                if ((zhangYiLocation <= 51) && (zhangYiLocation >= 48)) {
+                    zhangYiColumn = 1;
+                    zhangYiRow = (int) zhangYiLocation - 46;
+                }
+                if ((zhangYiLocation <= 57) && (zhangYiLocation >= 52)) {
+                    zhangYiColumn = 0;
+                    zhangYiRow = (int) zhangYiLocation - 52;
+                }
+                System.out.println(zhangYiLocation);
+                break;
+            }
+
+        }
+        if (zhangYiColumn == -1 || zhangYiRow == -1) {
+            System.out.println("error 2");
+            return false;
+        }
+
+    }
+        return true;
     }
 
     /**
