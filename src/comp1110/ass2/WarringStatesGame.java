@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import static java.lang.Character.isDigit;
+import static java.lang.Character.isISOControl;
 import static java.lang.Character.isUpperCase;
 
 /**
@@ -102,9 +103,77 @@ public class WarringStatesGame {
         if (!((locationChar >= 'A' && locationChar <= 'Z') || (locationChar >= '0' && locationChar <= '9'))) {
             return false;
         }
+        int loc = getLocationIndex(placement,locationChar);
+        if (loc == -1) {
+            return false;
+        }
+        char kingdomToBeCaptured = placement.charAt(loc - 2);
+        String locationsInMiddle = "";
+        String locationsOutOfRange = "";
+        boolean checked = false;
+        for (String col : COLS) {
+            if (col.contains(yi_position + "") && col.contains(locationChar + "")) {
+                int yi_int = col.indexOf(yi_position);
+                int loc_int = col.indexOf(locationChar);
+                if (yi_int > loc_int) {
+                    locationsInMiddle += col.substring(loc_int,yi_int);
+                    locationsOutOfRange += col.substring(0,loc_int);
+                }
+                else {
+                    locationsInMiddle += col.substring(yi_int + 1,loc_int + 1);
+                    locationsOutOfRange += col.substring(loc_int + 1);
+                }
+                checked = true;
+                continue;
+            }
+        }
 
+        for (String row : ROWS) {
+            if (row.contains(yi_position + "") && row.contains(locationChar + "")) {
+                int yi_int = row.indexOf(yi_position);
+                int loc_int = row.indexOf(locationChar);
+                if (yi_int > loc_int) {
+                    locationsInMiddle += row.substring(loc_int,yi_int);
+                    locationsOutOfRange += row.substring(0,loc_int);
+                }
+                else {
+                    locationsInMiddle += row.substring(yi_int + 1,loc_int + 1);
+                    locationsOutOfRange += row.substring(loc_int + 1);
+                }
+                checked = true;
+                continue;
+            }
+        }
+        if (!checked) return false;
+        System.out.println(locationsOutOfRange);
+        String kingdoms = kingdoms(placement,locationsOutOfRange);
+        for (int i = 0; i < kingdoms.length(); i++) {
+            if (kingdoms.charAt(i) == kingdomToBeCaptured) {
+                return false;
+            }
+        }
 
         return true;
+    }
+
+    static int getLocationIndex(String placement, char locationChar) {
+        for (int i = 0; i < placement.length() / 3; i++) {
+            if (placement.charAt(i * 3 + 2) == locationChar) {
+                return i * 3 + 2;
+            }
+        }
+        return -1;
+    }
+
+    static String kingdoms(String placement, String locations) {
+        String kingdoms = "";
+        for (int i = 0; i < locations.length(); i++) {
+            int index = getLocationIndex(placement,locations.charAt(i));
+            if (index != -1) {
+                kingdoms += placement.charAt(index - 2);
+            }
+        }
+        return kingdoms;
     }
 
     /**
