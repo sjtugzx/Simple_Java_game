@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -40,7 +42,6 @@ public class Viewer extends Application {
     TextField textField;
 
 
-
     /**
      * Draw a placement in the window, removing any previously drawn one
      *
@@ -49,49 +50,143 @@ public class Viewer extends Application {
 
      void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
-
-
-        int listLength=placement.length()/3;
+         //get string
+         int listLength=placement.length()/3;
         String [] orientationList=new String [listLength];
         String [] cardList=new String[listLength];
-
+        int jj=0;
         for(int i=0; i<listLength;++i)
         {
-            for (int j=0; j<placement.length();j=j+3)
+//            for (int j=0; j<placement.length();j=j+3)
+//            {
+
+                cardList[i]=Character.toString(placement.charAt(jj))+Character.toString(placement.charAt(jj+1));
+                orientationList[i]=Character.toString(placement.charAt(jj+2));
+//                continue;
+//            }
+//            System.out.println(orientationList[i]);
+            jj=jj+3;
+
+
+        }
+//         System.out.println(orientationList);
+
+         //new grid
+        GridPane gridPane=new GridPane();
+
+         gridPane.setAlignment(Pos.CENTER);
+         gridPane.setHgap(10);
+         gridPane.setVgap(10);
+         gridPane.setPadding(new Insets(8,8,8,8));
+
+         final int column=6;
+         final int row=6;
+         int tempColumn=0;
+         int tempRow=0;
+         Button button1[][]=new Button[column][row];
+
+         for( int i=0; i<column; i++)
+         {
+             for(int j=0; j<row; j++)
+             {
+                 button1[i][j]=new Button("");
+                 button1[i][j].setPrefSize(95,95);
+                 gridPane.add(button1[i][j],i,j);
+             }
+         }
+
+         int [] swap=new int [listLength];
+         for(int i=0;i<listLength;++i)
+
+         {
+             System.out.println(orientationList[i]);
+             swap[i]=(int)orientationList[i].charAt(0);
+             System.out.println(swap[i]);
+         }
+        //add button and judge the location
+         for(int i=0; i<listLength; ++i)
+        {
+            if((orientationList[i].charAt(0)<=70)&&(orientationList[i].charAt(0)>=65))
             {
-                cardList[i]=Character.toString(placement.charAt(j))+Character.toString(placement.charAt(j+1));
-                orientationList[i]=Character.toString(placement.charAt(i+2));
+                tempColumn=5;
+                tempRow=((int)orientationList[i].charAt(0))-5*13;
+                System.out.println(tempColumn);
+                System.out.println(tempRow);
+                button1[tempColumn][tempRow].setText(cardList[i]+orientationList[i]);
+                button1[tempColumn][tempRow].setPrefSize(95,95);
             }
+
+            if((orientationList[i].charAt(0)<=76)&&(orientationList[i].charAt(0)>=71))
+            {
+                tempColumn=4;
+                tempRow=((int)orientationList[i].charAt(0))-71;
+                System.out.println(tempColumn);
+                System.out.println(tempRow);
+                button1[tempColumn][tempRow].setText(cardList[i]+orientationList[i]);
+                button1[tempColumn][tempRow].setPrefSize(95,95);
+            }
+
+
+            if((orientationList[i].charAt(0)<=82)&&(orientationList[i].charAt(0)>=77))
+            {
+                tempColumn=3;
+                tempRow=((int)orientationList[i].charAt(0))-77;
+                System.out.println(tempColumn);
+                System.out.println(tempRow);
+                button1[tempColumn][tempRow].setText(cardList[i]+orientationList[i]);
+                button1[tempColumn][tempRow].setPrefSize(95,95);
+            }
+
+            if((orientationList[i].charAt(0)<=88)&&(orientationList[i].charAt(0)>=83))
+            {
+                tempColumn=2;
+                tempRow=((int)orientationList[i].charAt(0))-83;
+                System.out.println(tempColumn);
+                System.out.println(tempRow);
+                button1[tempColumn][tempRow].setText(cardList[i]+orientationList[i]);
+                button1[tempColumn][tempRow].setPrefSize(95,95);
+            }
+
+            if((orientationList[i].charAt(0)<=90)&&(orientationList[i].charAt(0)>=89))
+            {
+                tempColumn=1;
+                tempRow=((int)orientationList[i].charAt(0))-89;
+                System.out.println(tempColumn);
+                System.out.println(tempRow);
+                button1[tempColumn][tempRow].setText(cardList[i]+orientationList[i]);
+                button1[tempColumn][tempRow].setPrefSize(95,95);
+            }
+
+            if((orientationList[i].charAt(0)<=51)&&(orientationList[i].charAt(0)>=48))
+            {
+                tempColumn=1;
+                tempRow=((int)orientationList[i].charAt(0))-46;
+                System.out.println(tempColumn);
+                System.out.println(tempRow);
+                button1[tempColumn][tempRow].setText(cardList[i]+orientationList[i]);
+                button1[tempColumn][tempRow].setPrefSize(95,95);
+            }
+
+            if((orientationList[i].charAt(0)<=57)&&(orientationList[i].charAt(0)>=52))
+            {
+                tempColumn=0;
+                tempRow=((int)orientationList[i].charAt(0))-52;
+                System.out.println(tempColumn);
+                System.out.println(tempRow);
+                button1[tempColumn][tempRow].setText(cardList[i]+orientationList[i]);
+                button1[tempColumn][tempRow].setPrefSize(95,95);
+            }
+
+
 
         }
 
-//         GridPane gridPane=new GridPane();
-//
-//         gridPane.setAlignment(Pos.CENTER);
-//         gridPane.setHgap(10);
-//         gridPane.setVgap(10);
-//         gridPane.setPadding(new Insets(8,8,8,8));
-//
-//         final int column=6;
-//         final int row=6;
-//         int tempColumn=0;
-//         int tempRow=0;
-//         Button button[][]=new Button[column][row];
-//
-//         for( int i=0; i<column; i++)
-//         {
-//             for(int j=0; j<row; j++)
-//             {
-//                 button[i][j]=new Button("");
-//                 button[i][j].setPrefSize(95,95);
-//                 gridPane.add(button[i][j],i,j);
-//             }
-//         }
-//        grid.getChildren().add(gridPane);
 
-//         System.out.println("1"+orientationList[0]);
-//         System.out.println("2"+cardList[0]);
 
+
+         HBox hb1=new HBox();
+         hb1.getChildren().add(gridPane);
+         controls.getChildren().add(hb1);
     }
 
     /**
@@ -107,48 +202,18 @@ public class Viewer extends Application {
             public void handle(ActionEvent e) {
                 System.out.println(textField.getText());
                 makePlacement(textField.getText());
+//                text=textField.getText();
                 textField.clear();
 
             }
         });
-
-        GridPane gridPane=new GridPane();
-
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(8,8,8,8));
-
-        final int column=6;
-        final int row=6;
-        int tempColumn=0;
-        int tempRow=0;
-        Button button1[][]=new Button[column][row];
-
-        for( int i=0; i<column; i++)
-        {
-            for(int j=0; j<row; j++)
-            {
-                button1[i][j]=new Button("");
-                button1[i][j].setPrefSize(95,95);
-                gridPane.add(button1[i][j],i,j);
-            }
-        }
-//        grid.getChildren().add(gridPane);
-
-        HBox hb1=new HBox();
-        hb1.getChildren().add(gridPane);
-
-
-
-
         HBox hb = new HBox();
         hb.getChildren().addAll(label1, textField, button);
         hb.setSpacing(10);
         hb.setLayoutX(130);
         hb.setLayoutY(VIEWER_HEIGHT - 50);
 //        hb.setLayoutY(0);
-        controls.getChildren().addAll(hb,hb1);
+        controls.getChildren().addAll(hb);
 
     }
 
@@ -160,42 +225,8 @@ public class Viewer extends Application {
 
 
         root.getChildren().add(controls);
-//        root.getChildren().add(grid);
 
         makeControls();
-
-//        System.out.println("1"+orientationList[0]);
-//        System.out.println("2"+cardList[0]);
-//        GridPane gridPane=new GridPane();
-//
-//        gridPane.setAlignment(Pos.CENTER);
-//        gridPane.setHgap(10);
-//        gridPane.setVgap(10);
-//        gridPane.setPadding(new Insets(8,8,8,8));
-//
-//        final int column=6;
-//        final int row=6;
-//        int tempColumn=0;
-//        int tempRow=0;
-//        Button button[][]=new Button[column][row];
-//
-//        for( int i=0; i<column; i++)
-//        {
-//            for(int j=0; j<row; j++)
-//            {
-//                button[i][j]=new Button("");
-//                button[i][j].setPrefSize(95,95);
-//                gridPane.add(button[i][j],i,j);
-//            }
-//        }
-
-
-
-
-
-//        root.getChildren().add(gridPane);
-
-
 
 
         primaryStage.setScene(scene);
