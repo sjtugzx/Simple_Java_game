@@ -29,18 +29,18 @@ public class WarringStatesGame {
         char num = cardPlacement.charAt(1);
         char position = cardPlacement.charAt(2);
 
-        return  cardPlacement.length() == 3
+        return cardPlacement.length() == 3
                 && (isUpperCase(position) || isDigit(position))
                 && position < 91
                 && isDigit(num)
-                && ((kingdom == 'a' && num <  57)
-                ||  (kingdom == 'b' && num <  55)
-                ||  (kingdom == 'c' && num <  54)
-                ||  (kingdom == 'd' && num <  53)
-                ||  (kingdom == 'e' && num <  52)
-                ||  (kingdom == 'f' && num <  51)
-                ||  (kingdom == 'g' && num <  50)
-                ||  (kingdom == 'z' && num == 57));
+                && ((kingdom == 'a' && num < 57)
+                || (kingdom == 'b' && num < 55)
+                || (kingdom == 'c' && num < 54)
+                || (kingdom == 'd' && num < 53)
+                || (kingdom == 'e' && num < 52)
+                || (kingdom == 'f' && num < 51)
+                || (kingdom == 'g' && num < 50)
+                || (kingdom == 'z' && num == 57));
     }
 
     /**
@@ -56,21 +56,19 @@ public class WarringStatesGame {
     static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
 
-        if (placement == null)
-        {
+        if (placement == null) {
             return false;
         }
 
 
         int length = placement.length();
         //condition 1
-        if (length > 108 || length < 3 || length % 3 != 0 )
-        {
+        if (length > 108 || length < 3 || length % 3 != 0) {
             return false;
         }
         //condition 2
 
-        for(int i = 0; i < length; i += 3) {
+        for (int i = 0; i < length; i += 3) {
             char kingdonm = placement.charAt(i);
             char num = placement.charAt(i + 1);
             char position = placement.charAt(i + 2);
@@ -99,26 +97,25 @@ public class WarringStatesGame {
             if ((kingdonm == 'z') && (num == '9') && ((position <= 90 && position >= 65) || (position >= 48) && (position <= 57))) {
                 continue;
             } else {
-                System.out.println(placement+"3");
+                System.out.println(placement + "3");
                 return false;
 
             }
 
         }
         //condition3 and condition 4
-        List<String> usedCard=new ArrayList<String>();
-        List<String> usedPlace=new ArrayList<String>();
-        int t=0;
+        List<String> usedCard = new ArrayList<String>();
+        List<String> usedPlace = new ArrayList<String>();
+        int t = 0;
 //        System.out.println(length);
-        for(int i=0;i<length;i+=3)
-        {
+        for (int i = 0; i < length; i += 3) {
 
-            usedCard.add(Character.toString(placement.charAt(i))+Character.toString(placement.charAt(i+1)));
-            usedPlace.add(Character.toString(placement.charAt(i+2)));
+            usedCard.add(Character.toString(placement.charAt(i)) + Character.toString(placement.charAt(i + 1)));
+            usedPlace.add(Character.toString(placement.charAt(i + 2)));
             t++;
 //            System.out.println(usedCard.get(t-1));
 //            System.out.println(usedPlace.get(t-1));
-            if(t>1) {
+            if (t > 1) {
 
 
                 for (int j = 0; j < (t - 1); ++j) {
@@ -139,8 +136,6 @@ public class WarringStatesGame {
 //            System.out.println(i);
 
 
-
-
         }
 
 
@@ -151,14 +146,15 @@ public class WarringStatesGame {
      * Determine whether a given move is legal given a provided valid placement:
      * - the location char is in the range A .. Z or 0..9
      * - there is a card at the chosen location;
-     *
+     * <p>
      * - the location is in the same row or column of the grid as Zhang Yi's current position; and
-     *
-     *
+     * <p>
+     * <p>
      * - drawing a line from Zhang Yi's current location through the card at the chosen location,
-     *   there are no other cards along the line from the same kingdom as the chosen card
+     * there are no other cards along the line from the same kingdom as the chosen card
+     * <p>
+     * that are further away from Zhang Yi.
      *
-     *   that are further away from Zhang Yi.
      * @param placement    the current placement string
      * @param locationChar a location for Zhang Yi to move to
      * @return true if Zhang Yi may move to that location
@@ -166,40 +162,35 @@ public class WarringStatesGame {
     public static boolean isMoveLegal(String placement, char locationChar) {
         // FIXME Task 5: determine whether a given move is legal
         //location range
-        if ((locationChar<48)||((locationChar>57)&&(locationChar<65))||(locationChar>90))
-        {
+        if ((locationChar < 48) || ((locationChar > 57) && (locationChar < 65)) || (locationChar > 90)) {
             return false;
         }
 
 //      // card at chosen location
-        int flag=0;
-        int placementLength=placement.length();
-        char [] location=new char [placementLength/3];
-        String [] card=new String[placementLength/3];
-        int cont=0;
-        String aimCardKingdomCharacter="";
+        int flag = 0;
+        int placementLength = placement.length();
+        char[] location = new char[placementLength / 3];
+        String[] card = new String[placementLength / 3];
+        int cont = 0;
+        String aimCardKingdomCharacter = "";
 //        System.out.println(locationChar);
-        for(int j=0;j<placementLength/3; j++)
-        {
+        for (int j = 0; j < placementLength / 3; j++) {
 
-            location[j]=placement.charAt(cont+2);
-            card[j]=String.valueOf(placement.charAt(cont))+String.valueOf(placement.charAt(cont+1));
-            cont+=3;
+            location[j] = placement.charAt(cont + 2);
+            card[j] = String.valueOf(placement.charAt(cont)) + String.valueOf(placement.charAt(cont + 1));
+            cont += 3;
         }
-        for(int k=0; k<placementLength/3;++k)
-        {
+        for (int k = 0; k < placementLength / 3; ++k) {
 
-            if(location[k]==locationChar)
-            {
+            if (location[k] == locationChar) {
 //                System.out.println(location[k]);
-                aimCardKingdomCharacter=card[k];
-                flag=1;
+                aimCardKingdomCharacter = card[k];
+                flag = 1;
                 break;
             }
         }
         System.out.println(flag);
-        if(flag==0)
-        {
+        if (flag == 0) {
             System.out.println("error 1");
             return false;
         }
@@ -208,138 +199,120 @@ public class WarringStatesGame {
         //check the row or column
         //get zhangyi's location
         //judgement
-        char zhangYiLocation=' ';
-        int zhangYiColumn=-1;
-        int zhangYiRow=-1;
-        for(int k=0;k<placementLength/3;++k)
-        {
+        char zhangYiLocation = ' ';
+        int zhangYiColumn = -1;
+        int zhangYiRow = -1;
+        for (int k = 0; k < placementLength / 3; ++k) {
 //            System.out.println(card[k]);
-            if(card[k].equals("z9")) {
+            if (card[k].equals("z9")) {
 //                System.out.println("you zhangyi");
-                zhangYiLocation=location[k];
+                zhangYiLocation = location[k];
                 System.out.println(zhangYiLocation);
-                if((zhangYiLocation<=70)&&(zhangYiLocation>=65))
-                {
-                    zhangYiColumn=5;
-                    zhangYiRow=(int)zhangYiLocation-5*13;
+                if ((zhangYiLocation <= 70) && (zhangYiLocation >= 65)) {
+                    zhangYiColumn = 5;
+                    zhangYiRow = (int) zhangYiLocation - 5 * 13;
                 }
-                if((zhangYiLocation<=76)&&(zhangYiLocation>=71))
-                {
-                    zhangYiColumn=4;
-                    zhangYiRow=(int)zhangYiLocation-71;
+                if ((zhangYiLocation <= 76) && (zhangYiLocation >= 71)) {
+                    zhangYiColumn = 4;
+                    zhangYiRow = (int) zhangYiLocation - 71;
                 }
-                if((zhangYiLocation<=82)&&(zhangYiLocation>=77))
-                {
-                    zhangYiColumn=3;
-                    zhangYiRow=(int)zhangYiLocation-77;
+                if ((zhangYiLocation <= 82) && (zhangYiLocation >= 77)) {
+                    zhangYiColumn = 3;
+                    zhangYiRow = (int) zhangYiLocation - 77;
                 }
 
-                if((zhangYiLocation<=88)&&(zhangYiLocation>=83))
-                {
-                    zhangYiColumn=2;
-                    zhangYiRow=(int)zhangYiLocation-83;
+                if ((zhangYiLocation <= 88) && (zhangYiLocation >= 83)) {
+                    zhangYiColumn = 2;
+                    zhangYiRow = (int) zhangYiLocation - 83;
                 }
-                if((zhangYiLocation<=90)&&(zhangYiLocation>=89))
-                {
-                    zhangYiColumn=1;
-                    zhangYiRow=(int)zhangYiLocation-89;
+                if ((zhangYiLocation <= 90) && (zhangYiLocation >= 89)) {
+                    zhangYiColumn = 1;
+                    zhangYiRow = (int) zhangYiLocation - 89;
                 }
-                if((zhangYiLocation<=51)&&(zhangYiLocation>=48))
-                {
-                    zhangYiColumn=1;
-                    zhangYiRow=(int)zhangYiLocation-46;
+                if ((zhangYiLocation <= 51) && (zhangYiLocation >= 48)) {
+                    zhangYiColumn = 1;
+                    zhangYiRow = (int) zhangYiLocation - 46;
                 }
-                if((zhangYiLocation<=57)&&(zhangYiLocation>=52))
-                {
-                    zhangYiColumn=0;
-                    zhangYiRow=(int)zhangYiLocation-52;
+                if ((zhangYiLocation <= 57) && (zhangYiLocation >= 52)) {
+                    zhangYiColumn = 0;
+                    zhangYiRow = (int) zhangYiLocation - 52;
                 }
                 System.out.println(zhangYiLocation);
                 break;
             }
 
         }
-        if(zhangYiColumn==-1||zhangYiRow==-1)
-        {
+        if (zhangYiColumn == -1 || zhangYiRow == -1) {
             System.out.println("error 2");
             return false;
         }
         //get aim location column and row
         //judgement
-        int aimLocationColumn=-1;
-        int aimLocationRow=-1;
-        char rowBegin=' ';
-        char columnBegin=' ';
-        if((locationChar<=70)&&(locationChar>=65))
-        {
-            aimLocationColumn=5;
-            aimLocationRow=(int)locationChar-5*13;
-            columnBegin='A';
+        int aimLocationColumn = -1;
+        int aimLocationRow = -1;
+        char rowBegin = ' ';
+        char columnBegin = ' ';
+        if ((locationChar <= 70) && (locationChar >= 65)) {
+            aimLocationColumn = 5;
+            aimLocationRow = (int) locationChar - 5 * 13;
+            columnBegin = 'A';
 
 
         }
-        if((locationChar<=76)&&(locationChar>=71))
-        {
-            aimLocationColumn=4;
-            aimLocationRow=(int)locationChar-71;
-            columnBegin='G';
+        if ((locationChar <= 76) && (locationChar >= 71)) {
+            aimLocationColumn = 4;
+            aimLocationRow = (int) locationChar - 71;
+            columnBegin = 'G';
         }
-        if((locationChar<=82)&&(locationChar>=77))
-        {
-            aimLocationColumn=3;
-            aimLocationRow=(int)locationChar-77;
-            columnBegin='M';
+        if ((locationChar <= 82) && (locationChar >= 77)) {
+            aimLocationColumn = 3;
+            aimLocationRow = (int) locationChar - 77;
+            columnBegin = 'M';
         }
 
-        if((locationChar<=88)&&(locationChar>=83))
-        {
-            aimLocationColumn=2;
-            aimLocationRow=(int)locationChar-83;
-            columnBegin='S';
+        if ((locationChar <= 88) && (locationChar >= 83)) {
+            aimLocationColumn = 2;
+            aimLocationRow = (int) locationChar - 83;
+            columnBegin = 'S';
         }
-        if((locationChar<=90)&&(locationChar>=89))
-        {
-            aimLocationColumn=1;
-            aimLocationRow=(int)locationChar-89;
-            columnBegin='Y';
+        if ((locationChar <= 90) && (locationChar >= 89)) {
+            aimLocationColumn = 1;
+            aimLocationRow = (int) locationChar - 89;
+            columnBegin = 'Y';
         }
-        if((locationChar<=51)&&(locationChar>=48))
-        {
-            aimLocationColumn=1;
-            aimLocationRow=(int)locationChar-46;
-            columnBegin='Y';
+        if ((locationChar <= 51) && (locationChar >= 48)) {
+            aimLocationColumn = 1;
+            aimLocationRow = (int) locationChar - 46;
+            columnBegin = 'Y';
 
         }
-        if((locationChar<=57)&&(locationChar>=52))
-        {
-            aimLocationColumn=0;
-            aimLocationRow=(int)locationChar-52;
-            rowBegin='4';
+        if ((locationChar <= 57) && (locationChar >= 52)) {
+            aimLocationColumn = 0;
+            aimLocationRow = (int) locationChar - 52;
+            rowBegin = '4';
         }
-        if(aimLocationColumn==-1||aimLocationRow==-1)
-        {
+        if (aimLocationColumn == -1 || aimLocationRow == -1) {
             System.out.println("error 3");
             return false;
         }
 
-        if(((zhangYiColumn!=aimLocationColumn)&&(zhangYiRow!=aimLocationRow))||(zhangYiLocation==locationChar))
-        {
+        if (((zhangYiColumn != aimLocationColumn) && (zhangYiRow != aimLocationRow)) || (zhangYiLocation == locationChar)) {
             System.out.println("error 4");
             return false;
         }
 
-        char[] column0=new char[]{'4','5','6','7','8','9'};
-        char[] column1=new char[]{'Y','Z','0','1','2','3'};
-        char[] column2=new char[]{'S','T','U','V','W','X'};
-        char[] column3=new char[]{'M','N','O','P','Q','R'};
-        char[] column4=new char[]{'G','H','I','J','K','L'};
-        char[] column5=new char[]{'A','B','C','D','E','F'};
+        char[] column0 = new char[]{'4', '5', '6', '7', '8', '9'};
+        char[] column1 = new char[]{'Y', 'Z', '0', '1', '2', '3'};
+        char[] column2 = new char[]{'S', 'T', 'U', 'V', 'W', 'X'};
+        char[] column3 = new char[]{'M', 'N', 'O', 'P', 'Q', 'R'};
+        char[] column4 = new char[]{'G', 'H', 'I', 'J', 'K', 'L'};
+        char[] column5 = new char[]{'A', 'B', 'C', 'D', 'E', 'F'};
 //      the furthest card
         //get kingdom
         char kingdom;
         char test;
-        String testKingdom="";
-        kingdom=aimCardKingdomCharacter.charAt(0);
+        String testKingdom = "";
+        kingdom = aimCardKingdomCharacter.charAt(0);
         //get other card from the same line
         //from the same column
         System.out.print(zhangYiColumn);
@@ -348,7 +321,7 @@ public class WarringStatesGame {
 
         System.out.println(aimLocationRow);
 
-        if(zhangYiColumn==aimLocationColumn) {
+        if (zhangYiColumn == aimLocationColumn) {
             System.out.println("same column");
 
             if (aimLocationRow < zhangYiRow) {
@@ -358,17 +331,12 @@ public class WarringStatesGame {
                     return true;
                 }
                 //get other element
-                if(aimLocationColumn==0)
-                {
-                    for(int i=0;i<aimLocationRow;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column0[i]==location[j])
-                            {
+                if (aimLocationColumn == 0) {
+                    for (int i = 0; i < aimLocationRow; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column0[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -376,17 +344,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationColumn==1)
-                {
-                    for(int i=0;i<aimLocationRow;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column1[i]==location[j])
-                            {
+                if (aimLocationColumn == 1) {
+                    for (int i = 0; i < aimLocationRow; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column1[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -394,17 +357,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationColumn==2)
-                {
-                    for(int i=0;i<aimLocationRow;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column2[i]==location[j])
-                            {
+                if (aimLocationColumn == 2) {
+                    for (int i = 0; i < aimLocationRow; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column2[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -412,17 +370,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationColumn==3)
-                {
-                    for(int i=0;i<aimLocationRow;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column3[i]==location[j])
-                            {
+                if (aimLocationColumn == 3) {
+                    for (int i = 0; i < aimLocationRow; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column3[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -430,17 +383,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationColumn==4)
-                {
-                    for(int i=0;i<aimLocationRow;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column4[i]==location[j])
-                            {
+                if (aimLocationColumn == 4) {
+                    for (int i = 0; i < aimLocationRow; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column4[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -448,17 +396,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationColumn==5)
-                {
-                    for(int i=0;i<aimLocationRow;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column5[i]==location[j])
-                            {
+                if (aimLocationColumn == 5) {
+                    for (int i = 0; i < aimLocationRow; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column5[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -473,17 +416,12 @@ public class WarringStatesGame {
                 if (aimLocationRow == 5) {
                     return true;
                 }
-                if(aimLocationColumn==0)
-                {
-                    for(int i=aimLocationRow+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column0[i]==location[j])
-                            {
+                if (aimLocationColumn == 0) {
+                    for (int i = aimLocationRow + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column0[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -491,17 +429,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationColumn==1)
-                {
-                    for(int i=aimLocationRow+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column1[i]==location[j])
-                            {
+                if (aimLocationColumn == 1) {
+                    for (int i = aimLocationRow + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column1[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -509,17 +442,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationColumn==2)
-                {
-                    for(int i=aimLocationRow+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column2[i]==location[j])
-                            {
+                if (aimLocationColumn == 2) {
+                    for (int i = aimLocationRow + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column2[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -527,17 +455,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationColumn==3)
-                {
-                    for(int i=aimLocationRow+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column3[i]==location[j])
-                            {
+                if (aimLocationColumn == 3) {
+                    for (int i = aimLocationRow + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column3[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -545,17 +468,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationColumn==4)
-                {
-                    for(int i=aimLocationRow+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column4[i]==location[j])
-                            {
+                if (aimLocationColumn == 4) {
+                    for (int i = aimLocationRow + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column4[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -563,17 +481,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationColumn==5)
-                {
-                    for(int i=aimLocationRow+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(column5[i]==location[j])
-                            {
+                if (aimLocationColumn == 5) {
+                    for (int i = aimLocationRow + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (column5[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 5");
                                     return false;
                                 }
@@ -585,37 +498,29 @@ public class WarringStatesGame {
 
             }
         }
-        char[] row0=new char[]{'4','Y','S','M','G','A'};
-        char[] row1=new char[]{'5','Z','T','N','H','B'};
-        char[] row2=new char[]{'6','0','U','O','I','C'};
-        char[] row3=new char[]{'7','1','V','P','J','D'};
-        char[] row4=new char[]{'8','2','W','Q','K','E'};
-        char[] row5=new char[]{'9','3','X','R','L','F'};
-        if (zhangYiRow==aimLocationRow)
-        {
+        char[] row0 = new char[]{'4', 'Y', 'S', 'M', 'G', 'A'};
+        char[] row1 = new char[]{'5', 'Z', 'T', 'N', 'H', 'B'};
+        char[] row2 = new char[]{'6', '0', 'U', 'O', 'I', 'C'};
+        char[] row3 = new char[]{'7', '1', 'V', 'P', 'J', 'D'};
+        char[] row4 = new char[]{'8', '2', 'W', 'Q', 'K', 'E'};
+        char[] row5 = new char[]{'9', '3', 'X', 'R', 'L', 'F'};
+        if (zhangYiRow == aimLocationRow) {
             System.out.println("same Row");
             System.out.print(zhangYiColumn);
             System.out.println(zhangYiRow);
             System.out.print(aimLocationColumn);
             System.out.println(aimLocationRow);
-            if(aimLocationColumn<zhangYiColumn)
-            {
+            if (aimLocationColumn < zhangYiColumn) {
                 System.out.println("<");
-                if(aimLocationColumn==0)
-                {
+                if (aimLocationColumn == 0) {
                     return true;
                 }
-                if(aimLocationRow==0)
-                {
-                    for(int i=0;i<aimLocationColumn;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row0[i]==location[j])
-                            {
+                if (aimLocationRow == 0) {
+                    for (int i = 0; i < aimLocationColumn; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row0[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -623,17 +528,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationRow==1)
-                {
-                    for(int i=0;i<aimLocationColumn;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row1[i]==location[j])
-                            {
+                if (aimLocationRow == 1) {
+                    for (int i = 0; i < aimLocationColumn; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row1[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -641,17 +541,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationRow==2)
-                {
-                    for(int i=0;i<aimLocationColumn;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row2[i]==location[j])
-                            {
+                if (aimLocationRow == 2) {
+                    for (int i = 0; i < aimLocationColumn; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row2[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -659,17 +554,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationRow==3)
-                {
-                    for(int i=0;i<aimLocationColumn;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row3[i]==location[j])
-                            {
+                if (aimLocationRow == 3) {
+                    for (int i = 0; i < aimLocationColumn; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row3[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -677,17 +567,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationRow==4)
-                {
-                    for(int i=0;i<aimLocationColumn;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row4[i]==location[j])
-                            {
+                if (aimLocationRow == 4) {
+                    for (int i = 0; i < aimLocationColumn; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row4[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -695,17 +580,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationRow==5)
-                {
-                    for(int i=0;i<aimLocationColumn;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row5[i]==location[j])
-                            {
+                if (aimLocationRow == 5) {
+                    for (int i = 0; i < aimLocationColumn; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row5[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -715,24 +595,17 @@ public class WarringStatesGame {
                 }
 
             }
-            if(aimLocationColumn>zhangYiColumn)
-            {
+            if (aimLocationColumn > zhangYiColumn) {
                 System.out.println(">");
-                if(aimLocationColumn==5)
-                {
+                if (aimLocationColumn == 5) {
                     return true;
                 }
-                if(aimLocationRow==0)
-                {
-                    for(int i=aimLocationColumn+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row0[i]==location[j])
-                            {
+                if (aimLocationRow == 0) {
+                    for (int i = aimLocationColumn + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row0[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -740,17 +613,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationRow==0)
-                {
-                    for(int i=aimLocationColumn+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row1[i]==location[j])
-                            {
+                if (aimLocationRow == 0) {
+                    for (int i = aimLocationColumn + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row1[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -758,17 +626,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationRow==2)
-                {
-                    for(int i=aimLocationColumn+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row2[i]==location[j])
-                            {
+                if (aimLocationRow == 2) {
+                    for (int i = aimLocationColumn + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row2[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -776,17 +639,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationRow==3)
-                {
-                    for(int i=aimLocationColumn+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row3[i]==location[j])
-                            {
+                if (aimLocationRow == 3) {
+                    for (int i = aimLocationColumn + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row3[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -794,17 +652,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationRow==4)
-                {
-                    for(int i=aimLocationColumn+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row4[i]==location[j])
-                            {
+                if (aimLocationRow == 4) {
+                    for (int i = aimLocationColumn + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row4[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -812,17 +665,12 @@ public class WarringStatesGame {
                         }
                     }
                 }
-                if(aimLocationRow==5)
-                {
-                    for(int i=aimLocationColumn+1;i<=5;++i)
-                    {
-                        for(int j=0;j<placementLength/3;++j)
-                        {
-                            if(row5[i]==location[j])
-                            {
+                if (aimLocationRow == 5) {
+                    for (int i = aimLocationColumn + 1; i <= 5; ++i) {
+                        for (int j = 0; j < placementLength / 3; ++j) {
+                            if (row5[i] == location[j]) {
                                 testKingdom = card[j];
-                                if(testKingdom.charAt(0)==kingdom)
-                                {
+                                if (testKingdom.charAt(0) == kingdom) {
                                     System.out.println("error 6");
                                     return false;
                                 }
@@ -832,11 +680,6 @@ public class WarringStatesGame {
                 }
             }
         }
-
-
-
-
-
 
 
         return true;
@@ -883,7 +726,7 @@ public class WarringStatesGame {
             }
             for (int k = 0; k < placementLength / 3; ++k) {
 
-                if (location[k] ==location1[kk]) {
+                if (location[k] == location1[kk]) {
 //                System.out.println(location[k]);
                     aimCardKingdomCharacter = card[k];
                     flag = 1;
@@ -1001,11 +844,40 @@ public class WarringStatesGame {
      * there are no other cards along the line from the same kingdom as the chosen card
      * that are further away from Zhang Yi.
      * If there is no legal move available, return the null character '\0'.
+     *
      * @param placement the current placement string
      * @return a location character representing Zhang Yi's destination for the move
      */
+    static String[] ROWS = {"4YSMGA", "5ZTNHB", "60UOIC", "71VPJD", "82WQKE", "93XRLF"};
+    static String[] COLS = {"456789", "YZ0123", "STUVWX", "MNOPQR", "GHIJKL", "ABCDEF"};
+
     public static char generateMove(String placement) {
         // FIXME Task 10: generate a legal move
+        char yi_position = placement.charAt(placement.indexOf('z') + 2);
+        String loc = "";
+        for (String col : COLS) {
+            if (col.contains(yi_position + "")) {
+                int zhangInt = col.indexOf(yi_position);
+                System.out.println(zhangInt);
+                loc += col.substring(0, zhangInt) + col.substring(zhangInt + 1);
+                continue;
+            }
+        }
+        for (String row : ROWS) {
+            if (row.contains(yi_position + "")) {
+                int zhangInt = row.indexOf(yi_position);
+                System.out.println(zhangInt);
+                loc += row.substring(0, zhangInt) + row.substring(zhangInt + 1);
+                loc += row;
+                continue;
+            }
+        }
+
+        for (int i = 0; i < loc.length(); i++) {
+            if (isMoveLegal(placement, loc.charAt(i))) {
+                return loc.charAt(i);
+            }
+        }
         return '\0';
     }
 }
