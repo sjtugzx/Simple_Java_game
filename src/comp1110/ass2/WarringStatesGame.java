@@ -33,6 +33,7 @@ public class WarringStatesGame {
                 && (isUpperCase(position) || isDigit(position))
                 && position < 91
                 && isDigit(num)
+
                 && ((kingdom == 'a' && num <  57)
                 ||  (kingdom == 'b' && num <  55)
                 ||  (kingdom == 'c' && num <  54)
@@ -105,38 +106,29 @@ public class WarringStatesGame {
             }
 
         }
+
         //condition3 and condition 4
         List<String> usedCard=new ArrayList<String>();
         List<String> usedPlace=new ArrayList<String>();
         int t=0;
-//        System.out.println(length);
         for(int i=0;i<length;i+=3)
         {
 
             usedCard.add(Character.toString(placement.charAt(i))+Character.toString(placement.charAt(i+1)));
             usedPlace.add(Character.toString(placement.charAt(i+2)));
             t++;
-//            System.out.println(usedCard.get(t-1));
-//            System.out.println(usedPlace.get(t-1));
             if(t>1) {
 
 
                 for (int j = 0; j < (t - 1); ++j) {
-//                    System.out.println(usedCard.get(j));
-//                    System.out.println(usedPlace.get(j));
                     if (usedCard.get(t - 1).equals(usedCard.get(j))) {
-//                        System.out.println("error 3");
                         return false;
                     }
                     if (usedPlace.get(t - 1).equals(usedPlace.get(j))) {
-//                        System.out.println("error 4");
                         return false;
                     }
-//                    System.out.println(j);
                 }
             }
-//            System.out.println(t);
-//            System.out.println(i);
 
 
 
@@ -161,7 +153,20 @@ public class WarringStatesGame {
      */
     public static boolean isMoveLegal(String placement, char locationChar) {
         // FIXME Task 5: determine whether a given move is legal
-        return false;
+
+        char kingdom = placement.charAt(0);
+        char num = placement.charAt(1);
+        char position = placement.charAt(2);
+        boolean available() {
+            String Positions = "";
+            for (int i = 0; i < placement.length(), i += 3) {
+                Positions += placement.charAt(i + 2);
+            }
+             return Positions.indexOf(locationChar) >= 0;
+        }
+
+        return  (isUpperCase(position) || isDigit(position))
+                && position < 91;
     }
 
     /**
