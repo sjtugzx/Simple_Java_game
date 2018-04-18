@@ -1,12 +1,8 @@
 package comp1110.ass2;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
-import static java.lang.Character.isDigit;
-import static java.lang.Character.isISOControl;
-import static java.lang.Character.isUpperCase;
+import static java.lang.Character.*;
 
 /**
  * This class provides the text interface for the Warring States game
@@ -164,8 +160,6 @@ public class WarringStatesGame {
         }
         }
         locationsInMiddle = kinCap;
-
-        System.out.println("Updating Board");
         board = update(placement, location, kingdomToBeCaptured, locationChar);
         return true;
     }
@@ -251,7 +245,17 @@ public class WarringStatesGame {
 
 
         }
-            return captured;
+        ArrayList<String> cap = new ArrayList<>();
+        for (int i = 0; i < captured.length()/2; i++) {
+            String card = captured.substring(i*2,i*2 + 2);
+            cap.add(card);
+        }
+        Collections.sort(cap);
+        String sortd = "";
+        for (int i = 0; i < cap.size();i++) {
+            sortd += cap.get(i);
+        }
+            return sortd;
     }
 
     /**
@@ -301,7 +305,6 @@ public class WarringStatesGame {
         for (String col : COLS) {
             if (col.contains(yi_position + "")) {
                 int yi_index = col.indexOf(yi_position);
-                System.out.println(yi_index);
                 loc += col.substring(0, yi_index) + col.substring(yi_index + 1);
                 continue;
             }
@@ -309,18 +312,23 @@ public class WarringStatesGame {
         for (String row : ROWS) {
             if (row.contains(yi_position + "")) {
                 int yi_index = row.indexOf(yi_position);
-                System.out.println(yi_index);
                 loc += row.substring(0, yi_index) + row.substring(yi_index + 1);
-                loc += row;
                 continue;
             }
         }
 
+        String legalMove = "";
         for (int i = 0; i < loc.length(); i++) {
             if (isMoveLegal(placement, loc.charAt(i))) {
-                return loc.charAt(i);
+                legalMove += loc.charAt(i);
             }
         }
-        return '\0';
+        if (legalMove.length() == 0) {
+            return '\0';
+        }
+        Random random= new Random();
+        int i = random.nextInt(legalMove.length());
+        return legalMove.charAt(i);
+
     }
 }
