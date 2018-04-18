@@ -277,7 +277,25 @@ public class WarringStatesGame {
      */
     public static int[] getFlags(String setup, String moveSequence, int numPlayers) {
         // FIXME Task 8: determine which player controls the flag of each kingdom after a given sequence of moves
-        return null;
+        int[][] possessions = new int[numPlayers][7];
+        int[] flags = {-1,-1,-1,-1,-1,-1,-1};
+        board = setup;
+        for (int i = 0; i < moveSequence.length(); i++) {
+            String capturedCards = getSupporters(board,Character.toString(moveSequence.charAt(i)),numPlayers,0);
+            char capturedKingdom = capturedCards.charAt(0);
+            int currentFlagHolder = flags[capturedKingdom - 'a'];
+            possessions[i%numPlayers][capturedKingdom-'a'] += capturedCards.length()/2;
+            if (currentFlagHolder == -1) {
+                flags[capturedKingdom-'a'] = i%numPlayers;
+            }
+            else {
+                int maximumHeld = possessions[currentFlagHolder][capturedKingdom - 'a'];
+                if (possessions[i%numPlayers][capturedKingdom-'a'] >= maximumHeld) {
+                    flags[capturedKingdom-'a'] = i%numPlayers;
+                }
+            }
+        }
+        return flags;
     }
 
     /**
