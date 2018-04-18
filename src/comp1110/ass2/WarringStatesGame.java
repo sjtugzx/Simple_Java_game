@@ -318,6 +318,17 @@ public class WarringStatesGame {
 
     public static char generateMove(String placement) {
         // FIXME Task 10: generate a legal move
+        String legalMoves = possibleMoves(placement);
+        if (legalMoves.length() == 0) {
+            return '\0';
+        }
+        Random random= new Random();
+        int i = random.nextInt(legalMoves.length());
+        return legalMoves.charAt(i);
+
+    }
+
+    public static String possibleMoves (String placement) {
         char yi_position = placement.charAt(placement.indexOf('z') + 2);
         String loc = "";
         for (String col : COLS) {
@@ -335,18 +346,23 @@ public class WarringStatesGame {
             }
         }
 
-        String legalMove = "";
+        String legalMoves = "";
         for (int i = 0; i < loc.length(); i++) {
             if (isMoveLegal(placement, loc.charAt(i))) {
-                legalMove += loc.charAt(i);
+
+                legalMoves += loc.charAt(i);
             }
         }
-        if (legalMove.length() == 0) {
-            return '\0';
-        }
-        Random random= new Random();
-        int i = random.nextInt(legalMove.length());
-        return legalMove.charAt(i);
+        return legalMoves;
+    }
 
+    public static List<String> possibleStates (String legalMoves, String placement) {
+        List<String> states = new ArrayList<>();
+        for (int i = 0; i < legalMoves.length(); i++) {
+        }
+    }
+
+    public static String updateBoard(String placement, char locChar) {
+        int yi_index = placement.indexOf('z');
     }
 }
