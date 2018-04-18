@@ -12,7 +12,7 @@ import static java.lang.Character.isUpperCase;
  * This class provides the text interface for the Warring States game
  */
 public class WarringStatesGame {
-
+public static String board;
     /**
      * Determine whether a card placement is well-formed according to the following:
      * - it consists of exactly three characters
@@ -110,7 +110,7 @@ public class WarringStatesGame {
         char kingdomToBeCaptured = placement.charAt(loc - 2);
         String locationsInMiddle = "";
         String locationsOutOfRange = "";
-        boolean checked = false;
+
         for (String col : COLS) {
             if (col.contains(yi_position + "") && col.contains(locationChar + "")) {
                 int yi_int = col.indexOf(yi_position);
@@ -123,7 +123,7 @@ public class WarringStatesGame {
                     locationsInMiddle += col.substring(yi_int + 1,loc_int + 1);
                     locationsOutOfRange += col.substring(loc_int + 1);
                 }
-                checked = true;
+
                 continue;
             }
         }
@@ -140,19 +140,22 @@ public class WarringStatesGame {
                     locationsInMiddle += row.substring(yi_int + 1,loc_int + 1);
                     locationsOutOfRange += row.substring(loc_int + 1);
                 }
-                checked = true;
+
                 continue;
             }
         }
-        if (!checked) return false;
-        System.out.println(locationsOutOfRange);
+        if (locationsInMiddle.equals("")) {
+            return false;
+        }
+
         String kingdoms = kingdoms(placement,locationsOutOfRange);
         for (int i = 0; i < kingdoms.length(); i++) {
             if (kingdoms.charAt(i) == kingdomToBeCaptured) {
                 return false;
             }
         }
-
+        System.out.println("Updating Board");
+        board = update(placement,locationsInMiddle,kingdomToBeCaptured,locationChar);
         return true;
     }
 
@@ -176,6 +179,20 @@ public class WarringStatesGame {
         return kingdoms;
     }
 
+    static String update(String placement, String locationsInMiddle, char kingdomToBeCaptured, char locationChar) {
+        for (int i = 0 ; i < locationsInMiddle.length(); i++) {
+            int locInt = getLocationIndex(placement,locationsInMiddle.charAt(i));
+            if (locInt != -1) {
+            char kingdom = placement.charAt(locInt - 2);
+            if (kingdom == kingdomToBeCaptured) {
+                placement = placement.substring(0,locInt-2) + placement.substring(locInt + 1);
+                int yi_position = placement.indexOf('z');
+                placement = placement.substring(0,yi_position) + placement.substring(yi_position+3) + "z9" + locationChar;
+            }}
+        }
+        return placement;
+    }
+
     /**
      * Determine whether a move sequence is valid.
      * To be valid, the move sequence must be comprised of 1..N location characters
@@ -190,6 +207,11 @@ public class WarringStatesGame {
     static boolean isMoveSequenceValid(String setup, String moveSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
         //valid sequence
+        board = setup;
+        for (int i = 0; i < moveSequence.length(); i++) {
+            System.out.println("Board : " + board);
+            if (!isMoveLegal(board,moveSequence.charAt(i))) return false;
+        }
         return true;
     }
 
