@@ -12,7 +12,8 @@ import static java.lang.Character.isUpperCase;
  * This class provides the text interface for the Warring States game
  */
 public class WarringStatesGame {
-public static String board;
+    public static String board;
+
     /**
      * Determine whether a card placement is well-formed according to the following:
      * - it consists of exactly three characters
@@ -103,7 +104,7 @@ public static String board;
         if (!((locationChar >= 'A' && locationChar <= 'Z') || (locationChar >= '0' && locationChar <= '9'))) {
             return false;
         }
-        int loc = getLocationIndex(placement,locationChar);
+        int loc = getLocationIndex(placement, locationChar);
         if (loc == -1) {
             return false;
         }
@@ -116,11 +117,10 @@ public static String board;
                 int yi_int = col.indexOf(yi_position);
                 int loc_int = col.indexOf(locationChar);
                 if (yi_int > loc_int) {
-                    locationsInMiddle += col.substring(loc_int,yi_int);
-                    locationsOutOfRange += col.substring(0,loc_int);
-                }
-                else {
-                    locationsInMiddle += col.substring(yi_int + 1,loc_int + 1);
+                    locationsInMiddle += col.substring(loc_int, yi_int);
+                    locationsOutOfRange += col.substring(0, loc_int);
+                } else {
+                    locationsInMiddle += col.substring(yi_int + 1, loc_int + 1);
                     locationsOutOfRange += col.substring(loc_int + 1);
                 }
 
@@ -133,11 +133,10 @@ public static String board;
                 int yi_int = row.indexOf(yi_position);
                 int loc_int = row.indexOf(locationChar);
                 if (yi_int > loc_int) {
-                    locationsInMiddle += row.substring(loc_int,yi_int);
-                    locationsOutOfRange += row.substring(0,loc_int);
-                }
-                else {
-                    locationsInMiddle += row.substring(yi_int + 1,loc_int + 1);
+                    locationsInMiddle += row.substring(loc_int, yi_int);
+                    locationsOutOfRange += row.substring(0, loc_int);
+                } else {
+                    locationsInMiddle += row.substring(yi_int + 1, loc_int + 1);
                     locationsOutOfRange += row.substring(loc_int + 1);
                 }
 
@@ -148,14 +147,14 @@ public static String board;
             return false;
         }
 
-        String kingdoms = kingdoms(placement,locationsOutOfRange);
+        String kingdoms = kingdoms(placement, locationsOutOfRange);
         for (int i = 0; i < kingdoms.length(); i++) {
             if (kingdoms.charAt(i) == kingdomToBeCaptured) {
                 return false;
             }
         }
         System.out.println("Updating Board");
-        board = update(placement,locationsInMiddle,kingdomToBeCaptured,locationChar);
+        board = update(placement, locationsInMiddle, kingdomToBeCaptured, locationChar);
         return true;
     }
 
@@ -171,7 +170,7 @@ public static String board;
     static String kingdoms(String placement, String locations) {
         String kingdoms = "";
         for (int i = 0; i < locations.length(); i++) {
-            int index = getLocationIndex(placement,locations.charAt(i));
+            int index = getLocationIndex(placement, locations.charAt(i));
             if (index != -1) {
                 kingdoms += placement.charAt(index - 2);
             }
@@ -180,15 +179,16 @@ public static String board;
     }
 
     static String update(String placement, String locationsInMiddle, char kingdomToBeCaptured, char locationChar) {
-        for (int i = 0 ; i < locationsInMiddle.length(); i++) {
-            int locInt = getLocationIndex(placement,locationsInMiddle.charAt(i));
+        for (int i = 0; i < locationsInMiddle.length(); i++) {
+            int locInt = getLocationIndex(placement, locationsInMiddle.charAt(i));
             if (locInt != -1) {
-            char kingdom = placement.charAt(locInt - 2);
-            if (kingdom == kingdomToBeCaptured) {
-                placement = placement.substring(0,locInt-2) + placement.substring(locInt + 1);
-                int yi_position = placement.indexOf('z');
-                placement = placement.substring(0,yi_position) + placement.substring(yi_position+3) + "z9" + locationChar;
-            }}
+                char kingdom = placement.charAt(locInt - 2);
+                if (kingdom == kingdomToBeCaptured) {
+                    placement = placement.substring(0, locInt - 2) + placement.substring(locInt + 1);
+                    int yi_position = placement.indexOf('z');
+                    placement = placement.substring(0, yi_position) + placement.substring(yi_position + 3) + "z9" + locationChar;
+                }
+            }
         }
         return placement;
     }
@@ -210,7 +210,7 @@ public static String board;
         board = setup;
         for (int i = 0; i < moveSequence.length(); i++) {
             System.out.println("Board : " + board);
-            if (!isMoveLegal(board,moveSequence.charAt(i))) return false;
+            if (!isMoveLegal(board, moveSequence.charAt(i))) return false;
         }
         return true;
     }
