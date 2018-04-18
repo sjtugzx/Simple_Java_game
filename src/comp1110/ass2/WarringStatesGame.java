@@ -13,7 +13,7 @@ import static java.lang.Character.isUpperCase;
  */
 public class WarringStatesGame {
     public static String board;
-
+    public static String locationsInMiddle;
     /**
      * Determine whether a card placement is well-formed according to the following:
      * - it consists of exactly three characters
@@ -109,18 +109,18 @@ public class WarringStatesGame {
             return false;
         }
         char kingdomToBeCaptured = placement.charAt(loc - 2);
-        String locationsInMiddle = "";
         String locationsOutOfRange = "";
+        String location = "";
 
         for (String col : COLS) {
             if (col.contains(yi_position + "") && col.contains(locationChar + "")) {
                 int yi_int = col.indexOf(yi_position);
                 int loc_int = col.indexOf(locationChar);
                 if (yi_int > loc_int) {
-                    locationsInMiddle += col.substring(loc_int, yi_int);
+                    location += col.substring(loc_int, yi_int);
                     locationsOutOfRange += col.substring(0, loc_int);
                 } else {
-                    locationsInMiddle += col.substring(yi_int + 1, loc_int + 1);
+                    location += col.substring(yi_int + 1, loc_int + 1);
                     locationsOutOfRange += col.substring(loc_int + 1);
                 }
 
@@ -133,17 +133,17 @@ public class WarringStatesGame {
                 int yi_int = row.indexOf(yi_position);
                 int loc_int = row.indexOf(locationChar);
                 if (yi_int > loc_int) {
-                    locationsInMiddle += row.substring(loc_int, yi_int);
+                    location += row.substring(loc_int, yi_int);
                     locationsOutOfRange += row.substring(0, loc_int);
                 } else {
-                    locationsInMiddle += row.substring(yi_int + 1, loc_int + 1);
+                    location += row.substring(yi_int + 1, loc_int + 1);
                     locationsOutOfRange += row.substring(loc_int + 1);
                 }
 
                 continue;
             }
         }
-        if (locationsInMiddle.equals("")) {
+        if (location.equals("")) {
             return false;
         }
 
@@ -153,8 +153,20 @@ public class WarringStatesGame {
                 return false;
             }
         }
+        String kinCap = "";
+        for (int i = 0; i < location.length();i++) {
+            int locInt = getLocationIndex(placement,location.charAt(i));
+            if (locInt != -1){
+            char kingdom = placement.charAt(locInt - 2);
+            if (kingdom == kingdomToBeCaptured) {
+                kinCap += placement.substring(locInt - 2,locInt);
+            }
+        }
+        }
+        locationsInMiddle = kinCap;
+
         System.out.println("Updating Board");
-        board = update(placement, locationsInMiddle, kingdomToBeCaptured, locationChar);
+        board = update(placement, location, kingdomToBeCaptured, locationChar);
         return true;
     }
 
@@ -229,8 +241,17 @@ public class WarringStatesGame {
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
+        board = setup;
+        String captured = "";
+        for (int i = 0; i < moveSequence.length(); i++) {
+            isMoveLegal(board, moveSequence.charAt(i));
+            if (i % numPlayers == playerId) {
+                captured += locationsInMiddle;
+            }
 
-        return null;
+
+        }
+            return captured;
     }
 
     /**
