@@ -1,8 +1,13 @@
 package comp1110.ass2;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
-import static java.lang.Character.*;
+import static java.lang.Character.isDigit;
+import static java.lang.Character.isUpperCase;
+
 
 /**
  * This class provides the text interface for the Warring States game
@@ -20,6 +25,14 @@ public class WarringStatesGame {
      * @param cardPlacement A string describing a card placement
      * @return true if the card placement is well-formed
      */
+
+
+
+
+
+
+
+
     static boolean isCardPlacementWellFormed(String cardPlacement) {
         // FIXME Task 2: determine whether a card placement is well-formed]
 
@@ -27,19 +40,23 @@ public class WarringStatesGame {
         char num = cardPlacement.charAt(1);
         char position = cardPlacement.charAt(2);
 
-        return cardPlacement.length() == 3
+        return  cardPlacement.length() == 3
                 && (isUpperCase(position) || isDigit(position))
                 && position < 91
                 && isDigit(num)
-                && ((kingdom == 'a' && num < 57)
-                || (kingdom == 'b' && num < 55)
-                || (kingdom == 'c' && num < 54)
-                || (kingdom == 'd' && num < 53)
-                || (kingdom == 'e' && num < 52)
-                || (kingdom == 'f' && num < 51)
-                || (kingdom == 'g' && num < 50)
-                || (kingdom == 'z' && num == 57));
+                && ((kingdom == 'a' && num <  57)
+                ||  (kingdom == 'b' && num <  55)
+                ||  (kingdom == 'c' && num <  54)
+                ||  (kingdom == 'd' && num <  53)
+                ||  (kingdom == 'e' && num <  52)
+                ||  (kingdom == 'f' && num <  51)
+                ||  (kingdom == 'g' && num <  50)
+                ||  (kingdom == 'z' && num == 57));
     }
+
+
+
+
 
     /**
      * Determine whether a placement string is well-formed:
@@ -356,13 +373,13 @@ public class WarringStatesGame {
         return legalMoves;
     }
 
-    public static List<String> possibleStates (String legalMoves, String placement) {
-        List<String> states = new ArrayList<>();
-        for (int i = 0; i < legalMoves.length(); i++) {
-        }
-    }
+//    public static List<String> possibleStates (String legalMoves, String placement) {
+//        List<String> states = new ArrayList<>();
+//        for (int i = 0; i < legalMoves.length(); i++) {
+//        }
+//    }
 
-    public static String updateBoard(String placement, char locChar) {
-        int yi_index = placement.indexOf('z');
-    }
+//    public static String updateBoard(String placement, char locChar) {
+//        int yi_index = placement.indexOf('z');
+//    }
 }
