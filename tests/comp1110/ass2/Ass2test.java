@@ -7,7 +7,7 @@ import java.util.Random;
 import static java.lang.Character.isDigit;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-
+//function for check three characters
 public class Ass2test {
     static boolean threeCharacters(String cardString){
         if (cardString.length()==3){
@@ -18,13 +18,13 @@ public class Ass2test {
 
 
     }
-
+//function for check first int range
     static boolean firstInRange(char ch) {
         if ((ch >= 97 && ch <= 103) || (ch == 122)) {
             return true;
         } else return false;
     }
-
+//function for check for check tird int range
     static boolean thirdInRange(char ch)
     {
         if (((ch>=65)&&(ch<=90))||((ch>=48)&&(ch<=57)))
@@ -43,6 +43,7 @@ public class Ass2test {
         assertFalse(threeCharacters(str[0]));
         assertFalse(threeCharacters(str[2]));
         //random length test
+        //random length string for test
         for (int i=0;i<10;++i)
         {
             Random rand=new Random();
