@@ -4,4 +4,4 @@ We declare that the work we have submitted for Stage B of this assignment and al
 * All code so far is of our own creation.
 
 
-Signed: Raiyan Ahsan(u6437444) & Zhixin Guo(u6371520).
+Signed: Zhixin Guo(u6371520).
