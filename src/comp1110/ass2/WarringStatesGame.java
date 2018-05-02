@@ -26,8 +26,20 @@ public class WarringStatesGame {
      * @return true if the card placement is well-formed
      */
 
-
-
+    static String[] stringArray(String col, char zhangLocation, char locationChar) {
+        String[] condition = new String[2];
+        int zhangIndex = col.indexOf(zhangLocation);
+        int locToMove = col.indexOf(locationChar);
+        if (zhangIndex < locToMove) {
+            condition[0] = col.substring(zhangIndex, locToMove + 1);
+            condition[1] = col.substring(locToMove + 1);
+        } else {
+            condition[0] = col.substring(locToMove, zhangIndex);
+            condition[1] = col.substring(0, locToMove);
+        }
+        System.out.println(condition[0] + " " + condition[1]);
+        return condition;
+    }
 
 
 
