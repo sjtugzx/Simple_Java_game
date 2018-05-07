@@ -284,6 +284,7 @@ public class WarringStatesGame {
         for (int i = 0; i < cap.size();i++) {
             sortd += cap.get(i);
         }
+        System.out.println(sortd);
         return sortd;                                               //return the characters which had been captured by the chosen player (according to its ID) with an order
     }
 
