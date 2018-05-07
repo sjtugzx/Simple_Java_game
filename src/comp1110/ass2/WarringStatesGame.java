@@ -315,16 +315,16 @@ public class WarringStatesGame {
             int currentFlagHolder = flags[capturedKingdom - 'a'];
             possessions[i%numPlayers][capturedKingdom-'a'] += capturedCards.length()/2;
             if (currentFlagHolder == -1) {
-                flags[capturedKingdom-'a'] = i%numPlayers;
+                flags[capturedKingdom-'a'] = i%numPlayers;    //if no one control the flag the user hold the flag directly
             }
             else {
-                int maximumHeld = possessions[currentFlagHolder][capturedKingdom - 'a'];
+                int maximumHeld = possessions[currentFlagHolder][capturedKingdom - 'a'];        //if anyone have the flag, compare the holder's supporters
                 if (possessions[i%numPlayers][capturedKingdom-'a'] >= maximumHeld) {
                     flags[capturedKingdom-'a'] = i%numPlayers;
                 }
             }
         }
-        return flags;
+        return flags;    //return the situation of the flags
     }
 
     /**
