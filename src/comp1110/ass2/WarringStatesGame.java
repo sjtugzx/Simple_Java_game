@@ -182,11 +182,11 @@ public class WarringStatesGame {
         for (int i = 0; i < location.length();i++) {
             int locInt = getLocationIndex(placement,location.charAt(i));
             if (locInt != -1){
-            char kingdom = placement.charAt(locInt - 2);
-            if (kingdom == kingdomToBeCaptured) {
-                kinCap += placement.substring(locInt - 2,locInt);
+                char kingdom = placement.charAt(locInt - 2);
+                if (kingdom == kingdomToBeCaptured) {
+                    kinCap += placement.substring(locInt - 2,locInt);
+                }
             }
-        }
         }
         locationsInMiddle = kinCap;
         board = update(placement, location, kingdomToBeCaptured, locationChar);
@@ -264,27 +264,27 @@ public class WarringStatesGame {
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
-        board = setup;
-        String captured = "";
-        for (int i = 0; i < moveSequence.length(); i++) {
-            isMoveLegal(board, moveSequence.charAt(i));
-            if (i % numPlayers == playerId) {
-                captured += locationsInMiddle;
+        board = setup;                  //set up String board
+        String captured = "";           //captured for getting locations
+        for (int i = 0; i < moveSequence.length(); i++) {           //traverse the string moveSequence
+            isMoveLegal(board, moveSequence.charAt(i));             //judge whether the moveSequence is legal by recall the previous function isMoveLegal (task 2)
+            if (i % numPlayers == playerId) {                       //judge the character of this move belogs to the player (according to the playerID)
+                captured += locationsInMiddle;                      //captuer the card
             }
 
 
         }
-        ArrayList<String> cap = new ArrayList<>();
+        ArrayList<String> cap = new ArrayList<>();                 //creat a arraylist named cap for storing the card of the characters which has been captured
         for (int i = 0; i < captured.length()/2; i++) {
-            String card = captured.substring(i*2,i*2 + 2);
-            cap.add(card);
+            String card = captured.substring(i*2,i*2 + 2);          //get the characters according to the location
+            cap.add(card);                                            //add card to the list of capture
         }
-        Collections.sort(cap);
+        Collections.sort(cap);                                      //sort cap
         String sortd = "";
         for (int i = 0; i < cap.size();i++) {
             sortd += cap.get(i);
         }
-            return sortd;
+        return sortd;                                               //return the characters which had been captured by the chosen player (according to its ID) with an order
     }
 
     /**
@@ -307,11 +307,11 @@ public class WarringStatesGame {
     public static int[] getFlags(String setup, String moveSequence, int numPlayers) {
         // FIXME Task 8: determine which player controls the flag of each kingdom after a given sequence of moves
         int[][] possessions = new int[numPlayers][7];
-        int[] flags = {-1,-1,-1,-1,-1,-1,-1};
-        board = setup;
-        for (int i = 0; i < moveSequence.length(); i++) {
-            String capturedCards = getSupporters(board,Character.toString(moveSequence.charAt(i)),numPlayers,0);
-            char capturedKingdom = capturedCards.charAt(0);
+        int[] flags = {-1,-1,-1,-1,-1,-1,-1};  // initial flags for the element has not been controlled.
+        board = setup;                          //initial board
+        for (int i = 0; i < moveSequence.length(); i++) {        //traverse the move sequence
+            String capturedCards = getSupporters(board,Character.toString(moveSequence.charAt(i)),numPlayers,0);     //recall the function (task7) to get the supporters of every player.
+            char capturedKingdom = capturedCards.charAt(0);                     //identify the captured kingdom.
             int currentFlagHolder = flags[capturedKingdom - 'a'];
             possessions[i%numPlayers][capturedKingdom-'a'] += capturedCards.length()/2;
             if (currentFlagHolder == -1) {
