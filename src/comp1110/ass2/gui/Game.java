@@ -252,7 +252,7 @@ public static String getSupporters(String setup, String moveSequence, int numPla
             }
 
         }
-//        System.out.println(orientationList);
+//        Label gameSituation=new Label();
 
 
 
@@ -365,13 +365,26 @@ public static String getSupporters(String setup, String moveSequence, int numPla
 
 
         }
+        Label gameSituation=new Label();
 
-
-
+        if (orientationList.length==0)
+        {
+            System.out.println("Game is Over");
+            gameSituation=new Label("Game is Over");
+        }else {
+            System.out.println("Please Continue");
+            gameSituation=new Label("Please Continue");
+        }
 
         HBox hb1=new HBox();
+//        hb1.getChildren().addAll(gridPane,gameSituation);
         hb1.getChildren().add(gridPane);
+        HBox hbGame=new HBox();
+        hbGame.setLayoutX(700);
+        hbGame.setLayoutY(50);
+        hbGame.getChildren().add(gameSituation);
         controls.getChildren().add(hb1);
+        controls.getChildren().add(hbGame);
     }
 
     void playerSituation(String setup, String moveSequence, int numPlayers)
@@ -383,26 +396,66 @@ public static String getSupporters(String setup, String moveSequence, int numPla
         playerSituation.setVgap(20);
         playerSituation.setPadding(new Insets(8,8,8,8));
         final int playerColumn=1;
-        final int playerRow=4;
+        final int playerRow=numPlayers+1;
+        int [] flags=new int[7];
+        flags=getFlags( setup,  moveSequence,  numPlayers);
+        String [] haveSupporters=new String [numPlayers];
+
 
         Label [] playerID=new Label[numPlayers];
         for (int i=0;i<numPlayers;++i)
         {
             String supporters=getSupporters(setup, moveSequence, numPlayers, i);
+            haveSupporters[i]=supporters;
             System.out.println(supporters);
 
             playerID[i]=new Label("player"+" "+i+"get supporters of"+" "+supporters);
 
             playerSituation.add(playerID[i],1,i);
         }
+
+        int [] platerGetFlags=new int[numPlayers];
+        for (int i=0; i<numPlayers;++i)
+        {
+            for (int j=0;j<7;++j)
+            {
+                if (flags[j]==i)
+                {
+                    platerGetFlags[i]++;
+                }
+            }
+        }
+        int max=0;
+        int winner=0;
+        for (int i=0;i<numPlayers;++i)
+        {
+            if (max<platerGetFlags[i])
+            {
+                max=platerGetFlags[i];
+                winner=i;
+            }
+            if (max==platerGetFlags[i])
+            {
+                if(haveSupporters[winner].length()<haveSupporters[i].length())
+                {
+                    winner=i;
+                }
+            }
+        }
+        Label winnerPlayer=new Label("winner is player "+winner+" now");
+        playerSituation.add(winnerPlayer,1,numPlayers+1);
+
+
+
         HBox hbPlayer=new HBox();
         hbPlayer.getChildren().add(playerSituation);
-//        hbPlayer.setLayoutY();
+        hbPlayer.setLayoutY(100);
         hbPlayer.setLayoutX(650);
         controls.getChildren().add(hbPlayer);
     }
 
-    void resultOfTheGame()
+
+    void flagSituation()
     {
         ;
     }
@@ -430,6 +483,7 @@ public static String getSupporters(String setup, String moveSequence, int numPla
                 System.out.println(textFieldPlayer.getText());
                 int num=Integer.parseInt(textFieldPlayer.getText());
                 playerSituation(textField.getText(),textFieldMoveSequence.getText(),num);
+                flagSituation();
 //                text=textField.getText();
 //                textField.clear();
                 textFieldMoveSequence.clear();
