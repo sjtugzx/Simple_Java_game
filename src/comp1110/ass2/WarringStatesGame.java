@@ -47,7 +47,7 @@ public class WarringStatesGame {
 
     static boolean isCardPlacementWellFormed(String cardPlacement) {
         // FIXME Task 2: determine whether a card placement is well-formed]
-
+        //author: Zhixin Guo Revisor:Raiyan Ahsan (u6437444).
         char kingdom = cardPlacement.charAt(0);
         char num = cardPlacement.charAt(1);
         char position = cardPlacement.charAt(2);
@@ -82,6 +82,8 @@ public class WarringStatesGame {
      */
     static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
+        //author: Zhixin Guo Revisor:Raiyan Ahsan (u6437444).
+
         if (placement == null) {
             return false;
         }
@@ -124,6 +126,8 @@ public class WarringStatesGame {
      */
     public static boolean isMoveLegal(String placement, char locationChar) {
         // FIXME Task 5: determine whether a given move is legal
+        //author: Zhixin Guo Revisor:Raiyan Ahsan (u6437444).
+
         int yi_index = placement.indexOf('z');
         char yi_position = placement.charAt(yi_index + 2);
         if (!((locationChar >= 'A' && locationChar <= 'Z') || (locationChar >= '0' && locationChar <= '9'))) {
@@ -241,6 +245,7 @@ public class WarringStatesGame {
      */
     static boolean isMoveSequenceValid(String setup, String moveSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
+        //author:Raiyan Ahsan (u6437444).
         //valid sequence
         board = setup;
         for (int i = 0; i < moveSequence.length(); i++) {
@@ -264,6 +269,7 @@ public class WarringStatesGame {
      */
     public static String getSupporters(String setup, String moveSequence, int numPlayers, int playerId) {
         // FIXME Task 7: get the list of supporters for a given player after a sequence of moves
+        //author: Raiyan Ahsan (u6437444). Reviser: Zhixini Guo (u6371520)
         board = setup;                  //set up String board
         String captured = "";           //captured for getting locations
         for (int i = 0; i < moveSequence.length(); i++) {           //traverse the string moveSequence
@@ -307,6 +313,7 @@ public class WarringStatesGame {
      */
     public static int[] getFlags(String setup, String moveSequence, int numPlayers) {
         // FIXME Task 8: determine which player controls the flag of each kingdom after a given sequence of moves
+        //author: Raiyan Ahsan (u6437444). Reviser: Zhixini Guo (u6371520)
         int[][] possessions = new int[numPlayers][7];
         int[] flags = {-1,-1,-1,-1,-1,-1,-1};  // initial flags for the element has not been controlled.
         board = setup;                          //initial board
@@ -348,6 +355,7 @@ public class WarringStatesGame {
 
     public static char generateMove(String placement) {
         // FIXME Task 10: generate a legal move
+        //author: Raiyan Ahsan (u6437444).
         String legalMoves = possibleMoves(placement);
         if (legalMoves.length() == 0) {
             return '\0';

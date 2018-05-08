@@ -20,6 +20,7 @@ import static java.lang.Character.isDigit;
 import static java.lang.Character.isUpperCase;
 
 
+
 public class Game extends Application {
 //    private static final int BOARD_WIDTH = 933;
     private static final int BOARD_WIDTH = 1000;
@@ -29,6 +30,10 @@ public class Game extends Application {
     public static String locationsInMiddle;
 
     // FIXME Task 9: Implement a basic playable Warring States game in JavaFX
+
+    //author: Zhixin Guo (u6371520)
+
+
     private static final String URI_BASE = "assets/";
 
     private final Group root = new Group();
