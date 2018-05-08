@@ -23,8 +23,8 @@ import static java.lang.Character.isUpperCase;
 
 public class Game extends Application {
 //    private static final int BOARD_WIDTH = 933;
-    private static final int BOARD_WIDTH = 1000;
-    private static final int BOARD_HEIGHT = 700;
+    private static final int BOARD_WIDTH = 1000;  //set board width:1000
+    private static final int BOARD_HEIGHT = 700; //set board height: 700 (a little change)
 
     public static String board;
     public static String locationsInMiddle;
@@ -245,11 +245,14 @@ public static String getSupporters(String setup, String moveSequence, int numPla
 //                System.out.println(charMoveSequence[i]);
                 if (orientationList[j].equals(charMoveSequence[i]))
                 {
-
+                    //if the movesequence include the characters the characters need to be collected.
+                    //erase these characters from the board
                     orientationList[j]=orientationList[orientationList.length-1];
                     orientationList= Arrays.copyOf(orientationList,orientationList.length-1);
+                    //erase the orientation information
                     cardList[j]=cardList[cardList.length-1];
                     cardList=Arrays.copyOf(cardList,cardList.length-1);
+                    //erase the card information
                     System.out.println(orientationList.length);
                     break;
 
@@ -295,7 +298,7 @@ public static String getSupporters(String setup, String moveSequence, int numPla
         }
         //add button and judge the location
         for(int i=0; i<orientationList.length; ++i)
-        {
+        {       //according to the information for the board set up and the movesequence add buttons for every grid to show the characters situation
             if((orientationList[i].charAt(0)<=70)&&(orientationList[i].charAt(0)>=65))
             {
                 tempColumn=5;
@@ -370,14 +373,15 @@ public static String getSupporters(String setup, String moveSequence, int numPla
 
 
         }
+        //this label for recording the situation fo the game. Notice the player whether the game is over or the game still need to be continue
         Label gameSituation=new Label();
 
         if (orientationList.length==0)
         {
-            System.out.println("Game is Over");
+            System.out.println("Game is Over");     //no characters game is over
             gameSituation=new Label("Game is Over");
         }else {
-            System.out.println("Please Continue");
+            System.out.println("Please Continue");      //game still need to be continued
             gameSituation=new Label("Please Continue");
         }
 
@@ -385,16 +389,16 @@ public static String getSupporters(String setup, String moveSequence, int numPla
 //        hb1.getChildren().addAll(gridPane,gameSituation);
         hb1.getChildren().add(gridPane);
         HBox hbGame=new HBox();
-        hbGame.setLayoutX(700);
-        hbGame.setLayoutY(50);
+        hbGame.setLayoutX(700);                 //set layout x
+        hbGame.setLayoutY(50);                      //set layout y
         hbGame.getChildren().add(gameSituation);
         controls.getChildren().add(hb1);
         controls.getChildren().add(hbGame);
     }
 
-    void playerSituation(String setup, String moveSequence, int numPlayers)
+    void playerSituation(String setup, String moveSequence, int numPlayers)   //function for get player situation
     {
-
+        //make a grid to store the information of the players situation
         GridPane playerSituation=new GridPane();
         playerSituation.setAlignment(Pos.CENTER);
         playerSituation.setHgap(20);
@@ -406,7 +410,7 @@ public static String getSupporters(String setup, String moveSequence, int numPla
         flags=getFlags( setup,  moveSequence,  numPlayers);
         String [] haveSupporters=new String [numPlayers];
 
-
+        //labels for showing player's ID and the player's supporters
         Label [] playerID=new Label[numPlayers];
         for (int i=0;i<numPlayers;++i)
         {
@@ -418,7 +422,7 @@ public static String getSupporters(String setup, String moveSequence, int numPla
 
             playerSituation.add(playerID[i],1,i);
         }
-
+        //get information for every player has how many supporters
         int [] platerGetFlags=new int[numPlayers];
         for (int i=0; i<numPlayers;++i)
         {
@@ -430,6 +434,7 @@ public static String getSupporters(String setup, String moveSequence, int numPla
                 }
             }
         }
+        //according to the rule make sure who is the winner
         int max=0;
         int winner=0;
         for (int i=0;i<numPlayers;++i)
@@ -437,25 +442,25 @@ public static String getSupporters(String setup, String moveSequence, int numPla
             if (max<platerGetFlags[i])
             {
                 max=platerGetFlags[i];
-                winner=i;
+                winner=i;               //max number of the flags is the winner
             }
             if (max==platerGetFlags[i])
             {
                 if(haveSupporters[winner].length()<haveSupporters[i].length())
                 {
-                    winner=i;
+                    winner=i;           //if flags number are equal, then compare the characters
                 }
             }
         }
-        Label winnerPlayer=new Label("winner is player "+winner+" now");
+        Label winnerPlayer=new Label("winner is player "+winner+" now");        //laber of the winner
         playerSituation.add(winnerPlayer,1,numPlayers+1);
 
 
 
         HBox hbPlayer=new HBox();
-        hbPlayer.getChildren().add(playerSituation);
-        hbPlayer.setLayoutY(100);
-        hbPlayer.setLayoutX(650);
+        hbPlayer.getChildren().add(playerSituation);        //make these component together
+        hbPlayer.setLayoutY(100);                       //set layout y
+        hbPlayer.setLayoutX(650);                       //set layout x
         controls.getChildren().add(hbPlayer);
     }
 
@@ -469,37 +474,37 @@ public static String getSupporters(String setup, String moveSequence, int numPla
      * Create a basic text field for input and a refresh button.
      */
     private void makeControls() {
-        Label label1 = new Label("Placement:");
+        Label label1 = new Label("Placement:");             //label for placement
         textField = new TextField();
-        textField.setPrefWidth(250);
-        Label label2 = new Label("players number");
+        textField.setPrefWidth(250);                                //text area width
+        Label label2 = new Label("players number");             //label for players number
         textFieldPlayer=new TextField();
-        textFieldPlayer.setPrefWidth(50);
-        Label label3=new Label("MoveSequence");
+        textFieldPlayer.setPrefWidth(50);                           //text area width
+        Label label3=new Label("MoveSequence");             //label for move sequence
         textFieldMoveSequence=new TextField();
-        textFieldMoveSequence.setPrefWidth(200);
-        Button button = new Button("Move");
+        textFieldMoveSequence.setPrefWidth(200);                //text area width
+        Button button = new Button("Move");                     //add button
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {
+            public void handle(ActionEvent e) {     //handle event
                 System.out.println(textField.getText());
-                makePlacement(textField.getText(),textFieldMoveSequence.getText());
+                makePlacement(textField.getText(),textFieldMoveSequence.getText());   //recall makePlacement
                 System.out.println(textFieldMoveSequence.getText());
                 System.out.println(textFieldPlayer.getText());
                 int num=Integer.parseInt(textFieldPlayer.getText());
-                playerSituation(textField.getText(),textFieldMoveSequence.getText(),num);
-                flagSituation();
+                playerSituation(textField.getText(),textFieldMoveSequence.getText(),num);   //recall playersituation
+                flagSituation();                                            //recall flagsituation
 //                text=textField.getText();
 //                textField.clear();
-                textFieldMoveSequence.clear();
+                textFieldMoveSequence.clear();                      //clear the movesequence for add new movesequence
 
             }
         });
         HBox hb = new HBox();
         hb.getChildren().addAll(label1, textField, label2, textFieldPlayer, label3, textFieldMoveSequence, button);
-        hb.setSpacing(10);
-        hb.setLayoutX(20);
-        hb.setLayoutY(BOARD_HEIGHT - 50);
+        hb.setSpacing(10);                              //set component space
+        hb.setLayoutX(20);                              //set component layout x
+        hb.setLayoutY(BOARD_HEIGHT - 50);                 //set component layout y
 //        hb.setLayoutY(0);
         controls.getChildren().addAll(hb);
 
