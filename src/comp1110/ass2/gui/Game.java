@@ -14,10 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isUpperCase;
@@ -205,28 +202,59 @@ public static String getSupporters(String setup, String moveSequence, int numPla
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void makePlacement(String placement) {
+    void makePlacement(String placement, String moveSequence) {
         // FIXME Task 4: implement the simple placement viewer
         //get string
         int listLength=placement.length()/3;
         String [] orientationList=new String [listLength];
         String [] cardList=new String[listLength];
+        String [] charMoveSequence=new String[moveSequence.length()];
         int jj=0;
+
         for(int i=0; i<listLength;++i)
         {
-//            for (int j=0; j<placement.length();j=j+3)
-//            {
+
 
             cardList[i]=Character.toString(placement.charAt(jj))+Character.toString(placement.charAt(jj+1));
             orientationList[i]=Character.toString(placement.charAt(jj+2));
-//                continue;
-//            }
-//            System.out.println(orientationList[i]);
+
             jj=jj+3;
 
 
+
         }
-//         System.out.println(orientationList);
+        for (int i=0;i<moveSequence.length();++i)
+        {
+            charMoveSequence[i]=Character.toString(moveSequence.charAt(i));
+        }
+
+        System.out.println(orientationList.length);
+//        System.out.println(toString(orientationList));
+
+        for (int i=0;i<moveSequence.length();i++)
+        {
+
+            for (int j=0;j<orientationList.length;++j)
+            {
+//                System.out.println(orientationList[j]);
+//                System.out.println(charMoveSequence[i]);
+                if (orientationList[j].equals(charMoveSequence[i]))
+                {
+
+                    orientationList[j]=orientationList[orientationList.length-1];
+                    orientationList= Arrays.copyOf(orientationList,orientationList.length-1);
+                    cardList[j]=cardList[cardList.length-1];
+                    cardList=Arrays.copyOf(cardList,cardList.length-1);
+                    System.out.println(orientationList.length);
+                    break;
+
+                }
+            }
+
+        }
+//        System.out.println(orientationList);
+
+
 
         //new grid
         GridPane gridPane=new GridPane();
@@ -253,7 +281,7 @@ public static String getSupporters(String setup, String moveSequence, int numPla
         }
 
         int [] swap=new int [listLength];
-        for(int i=0;i<listLength;++i)
+        for(int i=0;i<orientationList.length;++i)
 
         {
             System.out.println(orientationList[i]);
@@ -261,7 +289,7 @@ public static String getSupporters(String setup, String moveSequence, int numPla
             System.out.println(swap[i]);
         }
         //add button and judge the location
-        for(int i=0; i<listLength; ++i)
+        for(int i=0; i<orientationList.length; ++i)
         {
             if((orientationList[i].charAt(0)<=70)&&(orientationList[i].charAt(0)>=65))
             {
@@ -392,18 +420,19 @@ public static String getSupporters(String setup, String moveSequence, int numPla
         Label label3=new Label("MoveSequence");
         textFieldMoveSequence=new TextField();
         textFieldMoveSequence.setPrefWidth(200);
-        Button button = new Button("Play");
+        Button button = new Button("Move");
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 System.out.println(textField.getText());
-                makePlacement(textField.getText());
+                makePlacement(textField.getText(),textFieldMoveSequence.getText());
                 System.out.println(textFieldMoveSequence.getText());
                 System.out.println(textFieldPlayer.getText());
                 int num=Integer.parseInt(textFieldPlayer.getText());
                 playerSituation(textField.getText(),textFieldMoveSequence.getText(),num);
 //                text=textField.getText();
-                textField.clear();
+//                textField.clear();
+                textFieldMoveSequence.clear();
 
             }
         });
