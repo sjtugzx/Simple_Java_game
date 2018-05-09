@@ -1,10 +1,27 @@
 Reviewer: Zhixin Guo (u6371520)
 
 Author: Raiyan Ahsan (u6437444)
-Comment for my partener's code: No comments and very hard to read. But very efficient and terse conding style.
+Comment for my partener's code: 
+1. No comments and very hard to read. 
+2. Very efficient and terse conding style.
+3. The code was clear and easy to understand.   : WarringStatesGame.java:275
+4. Good at using loop. ： WarringStatesGame.java: WarringStatesGame.java:275
+4. The code followed standard style and Java conventions.
+5. The code was a bit long-winded and used an excessive number of if-statements.
+7. Lacks comments and therefore difficult to understand.(no comments)
+8. Excessively verbose and repititive in places, for instance in Task 4 could have used array and for loop rather than multiple if statements.
+9. Did not remove print statements used for debugging.
+10. Good using for datastructure : WarringStatesGame.java:278: datastructre
+11. Have some errors. WarringStatesGame.java:from 397 to 406.
+
+
+
+
+
+
 
 Review Comments:
-
+For improve readable
 1. WarringStatesGame.java:273: set up String board
 2. WarringStatesGame.java:274: captured for getting locations
 3. WarringStatesGame.java:275: traverse the string moveSequence
