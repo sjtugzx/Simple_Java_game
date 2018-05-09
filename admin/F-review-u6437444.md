@@ -5,4 +5,5 @@ Review of my partner's code:
 3. The code was a bit long-winded and used an excessive number of if-statements.
 4. Some of the code did not work as expected.
 5. Lacks comments and therefore difficult to understand.
-6. Excessively verbose and repititive in places.
+6. Excessively verbose and repititive in places, for instance in Task 4 could have used array and for loop rather than multiple if statements.
+8. Did not remove print statements used for debugging.
