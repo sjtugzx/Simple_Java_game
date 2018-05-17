@@ -45,7 +45,7 @@ public class WarringStatesGame {
 
 
 
-    static boolean isCardPlacementWellFormed(String cardPlacement) {
+    public static boolean isCardPlacementWellFormed(String cardPlacement) {
         // FIXME Task 2: determine whether a card placement is well-formed]
         //author: Zhixin Guo Revisor:Raiyan Ahsan (u6437444).
         char kingdom = cardPlacement.charAt(0);
@@ -80,7 +80,7 @@ public class WarringStatesGame {
      * @param placement A string describing a placement of one or more cards
      * @return true if the placement is well-formed
      */
-    static boolean isPlacementWellFormed(String placement) {
+    public static boolean isPlacementWellFormed(String placement) {
         // FIXME Task 3: determine whether a placement is well-formed
         //author: Zhixin Guo Revisor:Raiyan Ahsan (u6437444).
 
@@ -243,7 +243,7 @@ public class WarringStatesGame {
      * @param moveSequence a string of location characters representing moves
      * @return True if the placement sequence is valid
      */
-    static boolean isMoveSequenceValid(String setup, String moveSequence) {
+    public static boolean isMoveSequenceValid(String setup, String moveSequence) {
         // FIXME Task 6: determine whether a placement sequence is valid
         //author:Raiyan Ahsan (u6437444).
         //valid sequence
