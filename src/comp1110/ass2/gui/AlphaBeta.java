@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlphaBeta {
+    // Author: Raiyan Ahsan
     public static char makeMove(String placement,String moveSequence,int numberOfPlayers,int playerID) {
         String moves = WarringStatesGame.possibleMoves(placement);
         List<Integer> scores = new ArrayList<>();
