@@ -47,6 +47,7 @@ public class Viewer extends Application {
 
     void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
+        // Author: Raiyan Ahsan
         // numberOfCards
         int listLength = placement.length() / 3;
         // locations list
