@@ -30,7 +30,7 @@ import java.util.*;
 /**
  *  Designer Zhixin Guo (u6371529)
  */
-public class Game extends Application {
+public class Viewer extends Application {
 
     private static final int VIEWER_WIDTH = 933;
     private static final int VIEWER_HEIGHT = 700;
@@ -186,7 +186,7 @@ public class Game extends Application {
         return placement;
     }
 
-//      Map<String,String> cardAccordingMap=new HashMap<>();
+    //      Map<String,String> cardAccordingMap=new HashMap<>();
     //creat this method for storing the card characters as the key and the supporters as the value
     HashMap creatCard()
     {
@@ -333,7 +333,7 @@ public class Game extends Application {
         }
         return flags;    //return the situation of the flags
     }
-        //setup the scoreBoard
+    //setup the scoreBoard
 
     /**
      * these code create a score board with the credit of the players and the winner for now
@@ -427,15 +427,15 @@ public class Game extends Application {
      * @param numPlayers the mumber of the players
      */
 
-     void makePlacement(String placement, int numPlayers ) {
+    void makePlacement(String placement, int numPlayers ) {
         // FIXME Task 4: implement the simple placement viewer
 
-         int listLength=placement.length()/3;
-         final HashMap cardMap = creatCard();
+        int listLength=placement.length()/3;
+        final HashMap cardMap = creatCard();
 
 
-         String [] orientationList=new String [listLength];
-         String [] cardList=new String[listLength];
+        String [] orientationList=new String [listLength];
+        String [] cardList=new String[listLength];
 
 
         int jj=0;
@@ -450,40 +450,40 @@ public class Game extends Application {
 
 
 
-         GridPane gridPane=new GridPane();
+        GridPane gridPane=new GridPane();
 
-         gridPane.setAlignment(Pos.CENTER);
-         gridPane.setHgap(10);
-         gridPane.setVgap(10);
-         gridPane.setPadding(new Insets(8,8,8,8));
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(8,8,8,8));
 
-         final int column=6;
-         final int row=6;
-         int tempColumn=0;
-         int tempRow=0;
-         Button button1[][]=new Button[column][row];
+        final int column=6;
+        final int row=6;
+        int tempColumn=0;
+        int tempRow=0;
+        Button button1[][]=new Button[column][row];
 
-         for( int i=0; i<column; i++)
-         {
-             for(int j=0; j<row; j++)
-             {
-                 button1[i][j]=new Button("");
-                 button1[i][j].setPrefSize(95,95);
-                 gridPane.add(button1[i][j],i,j);
-             }
-         }
+        for( int i=0; i<column; i++)
+        {
+            for(int j=0; j<row; j++)
+            {
+                button1[i][j]=new Button("");
+                button1[i][j].setPrefSize(95,95);
+                gridPane.add(button1[i][j],i,j);
+            }
+        }
 
-         int [] swap=new int [listLength];
-         for(int i=0;i<listLength;++i)
+        int [] swap=new int [listLength];
+        for(int i=0;i<listLength;++i)
 
-         {
-             swap[i]=(int)orientationList[i].charAt(0);
-         }
+        {
+            swap[i]=(int)orientationList[i].charAt(0);
+        }
 
         Label path=new Label("");
 
 
-         for(int i=0; i<listLength; ++i)
+        for(int i=0; i<listLength; ++i)
         {
 
             if((orientationList[i].charAt(0)<=70)&&(orientationList[i].charAt(0)>=65))
@@ -500,7 +500,7 @@ public class Game extends Application {
 
 
 
-                 String replacement=placement;
+                String replacement=placement;
                 if (isMoveLegal(placement,orientationList[i].charAt(0)))
                 {
 
@@ -976,15 +976,15 @@ public class Game extends Application {
 
 
 
-         HBox hb1=new HBox();
-         hb1.getChildren().addAll(gridPane,path);
-         controls.getChildren().add(hb1);
+        HBox hb1=new HBox();
+        hb1.getChildren().addAll(gridPane,path);
+        controls.getChildren().add(hb1);
     }
 
     /**
      * Create a basic text field for input and a refresh button.
      */
-     void makeControls() {
+    void makeControls() {
         Label label1 = new Label("Players' Number:");
 //        label1.setLayoutX(0);
         textField = new TextField();
