@@ -8,7 +8,7 @@ of our project implements the following features:
  - A basic playable link Warring States game that allows legal moves and collects supporters (Task 8)
  - Compute scoring (Task 9)
  - Generate a valid move (Task 10)
-
+-  AI (Task 11, 12)
 
 
 
