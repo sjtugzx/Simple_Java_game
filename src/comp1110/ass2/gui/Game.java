@@ -32,11 +32,12 @@ public class Game extends Application {
     static Group controls = new Group();
 
     // FIXME Task 9: Implement a basic playable Warring States game in JavaFX
-
+    // Author: Raiyan Ahsan
     // FIXME Task 11: Allow players of your Warring States game to play against your simple agent
-
+    // Author: Raiyan Ahsan
     // FIXME Task 12: Integrate a more advanced opponent into your game
-
+    // Author: Raiyan Ahsan
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Warring States");
